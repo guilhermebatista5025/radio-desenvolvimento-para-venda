@@ -229,6 +229,32 @@ async function carregarNoticiasAPI() {
     // Ativa fallback com as notícias mockadas estruturadas
     NOTICIAS_ATUAIS = [...NOTICIAS_MOCK];
   }
+
+  // Mesclar notícias customizadas do Painel Administrativo (LocalStorage) no topo do feed
+  try {
+    const customNews = JSON.parse(localStorage.getItem("PULSO_NEWS")) || [];
+    if (customNews.length > 0) {
+      const mappedCustom = customNews.map(item => {
+        let textoModal = item.textoCompleto || "";
+        if (!textoModal.includes("<p>")) {
+          textoModal = `<p class="resumo-completo">${item.resumo || ""}</p><div class="corpo-noticia-completo">${item.textoCompleto || ""}</div>`;
+        }
+        return {
+          id: `custom-${item.id}`,
+          titulo: item.titulo,
+          resumo: item.resumo,
+          textoCompleto: textoModal,
+          categoria: item.categoria || "Local",
+          imagem: item.imagem || "https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?auto=format&fit=crop&q=80&w=600",
+          data: item.data || new Date().toLocaleDateString('pt-BR', { day: '2-digit', month: 'long', year: 'numeric' })
+        };
+      });
+      NOTICIAS_ATUAIS = [...mappedCustom, ...NOTICIAS_ATUAIS];
+      console.log(`[Notícias Admin] Mescladas ${mappedCustom.length} notícias criadas localmente.`);
+    }
+  } catch (e) {
+    console.error("Erro ao mesclar notícias do admin local:", e);
+  }
 }
 
 // Inicialização da exibição de notícias

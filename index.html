@@ -59,6 +59,7 @@
       <a href="#programacao" class="nav-link">Programação</a>
       <a href="#locutores" class="nav-link">Locutores</a>
       <a href="#contato" class="nav-link">Contato</a>
+      <a href="./comercial.html" class="nav-link nav-link-destaque">📣 Anuncie</a>
     </nav>
 
     <!-- Ações do Header -->
@@ -300,7 +301,7 @@
       <div class="container-wrapper">
         <h2 class="section-title reveal">Grade de <span>Programação</span></h2>
         
-        <div class="programacao-grid">
+        <div class="programacao-grid" id="programacao-dinamica-grid">
           
           <!-- Card 1 -->
           <div class="programacao-card reveal">
@@ -389,7 +390,7 @@
       <div class="container-wrapper">
         <h2 class="section-title reveal">Nossa Equipe de <span>Locutores</span></h2>
         
-        <div class="locutores-grid">
+        <div class="locutores-grid" id="locutores-dinamica-grid">
           
           <!-- Locutor 1 -->
           <div class="locutor-card reveal">
@@ -479,7 +480,36 @@
       </div>
     </section>
 
-    <!-- Seção de PWA removida temporariamente -->
+    <!-- 8. PATROCINADORES -->
+    <section class="patrocinadores-section" id="patrocinadores">
+      <div class="container-wrapper">
+        <h2 class="section-title reveal">Nossos <span>Parceiros</span> & Patrocinadores</h2>
+        
+        <div class="patrocinadores-grid" id="patrocinadores-dinamico-grid">
+          <!-- Renderizado dinamicamente via script.js -->
+          <div class="patrocinador-card reveal">
+            <div class="patrocinador-logo-wrapper">
+              <span class="patrocinador-placeholder-logo">Parceiro Ouro</span>
+            </div>
+          </div>
+          <div class="patrocinador-card reveal" style="transition-delay: 0.1s;">
+            <div class="patrocinador-logo-wrapper">
+              <span class="patrocinador-placeholder-logo">Supermercado Silva</span>
+            </div>
+          </div>
+          <div class="patrocinador-card reveal" style="transition-delay: 0.2s;">
+            <div class="patrocinador-logo-wrapper">
+              <span class="patrocinador-placeholder-logo">Farmácia Saúde</span>
+            </div>
+          </div>
+          <div class="patrocinador-card reveal" style="transition-delay: 0.3s;">
+            <div class="patrocinador-logo-wrapper">
+              <span class="patrocinador-placeholder-logo">Auto Posto Pulso</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
 
     <!-- 9. CONTATO -->
     <section class="contato-section" id="contato">
@@ -584,7 +614,7 @@
           </svg>
           <div class="footer-logo-text">PULSO<span>98.7 FM</span></div>
         </div>
-        <p class="footer-about-text">A Rádio Pulso FM opera com qualidade digital e transmissão HD diretamente de Vila Velha – ES para todo o mundo via web e aplicativo PWA.</p>
+        <p class="footer-about-text">A Rádio Pulso FM opera com qualidade digital e transmissão HD diretamente de Vila Velha – ES para todo o mundo via web.</p>
       </div>
 
       <div class="footer-col-links">

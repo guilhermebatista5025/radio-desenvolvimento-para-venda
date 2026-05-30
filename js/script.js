@@ -2,6 +2,7 @@
 
 // Evento de inicialização do DOM
 document.addEventListener("DOMContentLoaded", () => {
+  initDinamico();
   initGeral();
   initMenuMobile();
   initScrollSuave();
@@ -194,4 +195,294 @@ function initHeroSlider() {
 
   // Iniciar
   startSlideShow();
+}
+
+// 7. Integração de Conteúdo Dinâmico Administrável (CRUD LocalStorage)
+function initDinamico() {
+  const DEFAULT_PROGRAMACAO = [
+    { id: 1, titulo: "Despertar Pulso", horario: "06:00 - 09:00", locutor: "Juliana Vasconcellos", ordem: 1 },
+    { id: 2, titulo: "Manhã de Sucessos", horario: "09:00 - 12:00", locutor: "Carlos Alberto", ordem: 2 },
+    { id: 3, titulo: "Pulso Informa", horario: "12:00 - 14:00", locutor: "Marcos Lima (Notícias)", ordem: 3 },
+    { id: 4, titulo: "Conexão Cidade", horario: "14:00 - 18:00", locutor: "Rodrigo Silveira", ordem: 4 },
+    { id: 5, titulo: "Esporte na Veia", horario: "18:00 - 20:00", locutor: "Fernando Costa", ordem: 5 },
+    { id: 6, titulo: "Pista Mix", horario: "20:00 - 22:00", locutor: "DJ Alok (Mixagens)", ordem: 6 }
+  ];
+
+  const DEFAULT_LOCUTORES = [
+    {
+      id: 1,
+      nome: "Juliana Vasconcellos",
+      cargo: "Locutora e Jornalista",
+      bio: "Comanda as manhãs trazendo informação e muita simpatia para começar o dia no ritmo certo.",
+      foto: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=400&h=400",
+      ordem: 1,
+      instagram: "https://instagram.com",
+      whatsapp: "https://wa.me/5527999879870"
+    },
+    {
+      id: 2,
+      nome: "Rodrigo Silveira",
+      cargo: "Locutor de Entretenimento",
+      bio: "Líder de audiência nas tardes capixabas, anima o trânsito com humor, curiosidades e pop de qualidade.",
+      foto: "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?auto=format&fit=crop&q=80&w=400&h=400",
+      ordem: 2,
+      instagram: "https://instagram.com",
+      whatsapp: "https://wa.me/5527999879870"
+    },
+    {
+      id: 3,
+      nome: "Fernando Costa",
+      cargo: "Locutor de Esportes",
+      bio: "Especialista no futebol e esportes locais, traz as notícias mais quentes de forma rápida e divertida.",
+      foto: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=400&h=400",
+      ordem: 3,
+      instagram: "https://instagram.com",
+      whatsapp: "https://wa.me/5527999879870"
+    }
+  ];
+
+  const DEFAULT_PATROCINADORES = [
+    { id: 1, nome: "Supermercado Silva", logo: "", link: "https://wa.me/5527999879870", ordem: 1 },
+    { id: 2, nome: "Farmácia Saúde", logo: "", link: "https://wa.me/5527999879870", ordem: 2 },
+    { id: 3, nome: "Auto Posto Pulso", logo: "", link: "https://wa.me/5527999879870", ordem: 3 }
+  ];
+
+  let localProgramacao = JSON.parse(localStorage.getItem("PULSO_SCHEDULE"));
+  let localLocutores = JSON.parse(localStorage.getItem("PULSO_HOSTS"));
+  let localPatrocinadores = JSON.parse(localStorage.getItem("PULSO_SPONSORS"));
+
+  // Semear dados se estiver vazio
+  if (!localProgramacao) {
+    localProgramacao = DEFAULT_PROGRAMACAO;
+    localStorage.setItem("PULSO_SCHEDULE", JSON.stringify(DEFAULT_PROGRAMACAO));
+    localStorage.setItem("PULSO_SCHEDULE_SEEDED", "true");
+  }
+  if (!localLocutores) {
+    localLocutores = DEFAULT_LOCUTORES;
+    localStorage.setItem("PULSO_HOSTS", JSON.stringify(DEFAULT_LOCUTORES));
+    localStorage.setItem("PULSO_HOSTS_SEEDED", "true");
+  }
+  if (!localPatrocinadores) {
+    localPatrocinadores = DEFAULT_PATROCINADORES;
+    localStorage.setItem("PULSO_SPONSORS", JSON.stringify(DEFAULT_PATROCINADORES));
+    localStorage.setItem("PULSO_SPONSORS_SEEDED", "true");
+  }
+
+  // Renderizar Programação Semanal
+  renderProgramacao(localProgramacao);
+
+  // Renderizar Equipe de Locutores
+  renderLocutores(localLocutores);
+
+  // Renderizar Patrocinadores
+  renderPatrocinadores(localPatrocinadores);
+
+  // Renderizar Painel Ao Vivo (Destaque Ativo + Próximo)
+  renderAoVivoDestaque(localProgramacao, localLocutores);
+}
+
+function renderProgramacao(lista) {
+  const container = document.getElementById("programacao-dinamica-grid");
+  if (!container) return;
+
+  container.innerHTML = "";
+  
+  lista.sort((a, b) => a.ordem - b.ordem);
+
+  lista.forEach((item, index) => {
+    const delay = index * 0.1;
+    const div = document.createElement("div");
+    
+    const noAr = estaNoHorario(item.horario);
+    
+    div.className = `programacao-card ${noAr ? 'ativo-no-ar' : ''} reveal`;
+    div.style.transitionDelay = `${delay}s`;
+
+    let badgeHTML = "";
+    if (noAr) {
+      badgeHTML = `<span class="programacao-badge-no-ar">NO AR</span>`;
+    }
+
+    div.innerHTML = `
+      ${badgeHTML}
+      <div class="programacao-icon-wrapper" aria-hidden="true">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          ${noAr ? `
+            <path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3z"></path>
+            <path d="M19 10v2a7 7 0 0 1-14 0v-2"></path>
+            <line x1="12" y1="19" x2="12" y2="22"></line>
+          ` : `
+            <path d="M12 2a10 10 0 0 1 10 10c0 5.523-4.477 10-10 10S2 17.523 2 12 6.477 2 12 2z"/>
+            <path d="M12 6v6l4 2"/>
+          `}
+        </svg>
+      </div>
+      <span class="programacao-time">${item.horario}</span>
+      <h3 class="programacao-show-name">${item.titulo}</h3>
+      <p class="programacao-locutor">${item.locutor}</p>
+    `;
+    
+    container.appendChild(div);
+  });
+}
+
+function renderLocutores(lista) {
+  const container = document.getElementById("locutores-dinamica-grid");
+  if (!container) return;
+
+  container.innerHTML = "";
+  
+  lista.sort((a, b) => a.ordem - b.ordem);
+
+  lista.forEach((loc, index) => {
+    const delay = index * 0.15;
+    const div = document.createElement("div");
+    div.className = "locutor-card reveal";
+    div.style.transitionDelay = `${delay}s`;
+
+    div.innerHTML = `
+      <div class="locutor-img-wrapper">
+        <img src="${loc.foto}" alt="${loc.nome}" class="locutor-img" loading="lazy">
+        <div class="locutor-overlay-hover">
+          <div class="locutor-social-links">
+            <a href="${loc.instagram || 'https://instagram.com'}" class="locutor-social-btn" aria-label="Instagram de ${loc.nome}" target="_blank" rel="noopener">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rx>
+                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+              </svg>
+            </a>
+            <a href="${loc.whatsapp || 'https://wa.me/5527999879870'}" class="locutor-social-btn" aria-label="WhatsApp de ${loc.nome}" target="_blank" rel="noopener">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="locutor-info">
+        <h3 class="locutor-name">${loc.nome}</h3>
+        <p class="locutor-role">${loc.cargo}</p>
+        <p class="locutor-bio">${loc.bio}</p>
+      </div>
+    `;
+    
+    container.appendChild(div);
+  });
+}
+
+function renderPatrocinadores(lista) {
+  const container = document.getElementById("patrocinadores-dinamico-grid");
+  if (!container) return;
+
+  container.innerHTML = "";
+  
+  lista.sort((a, b) => a.ordem - b.ordem);
+
+  lista.forEach((pat, index) => {
+    const delay = index * 0.1;
+    const div = document.createElement("div");
+    div.className = "patrocinador-card reveal";
+    div.style.transitionDelay = `${delay}s`;
+
+    let logoHTML = "";
+    if (pat.logo) {
+      logoHTML = `<img src="${pat.logo}" alt="${pat.nome}" loading="lazy">`;
+    } else {
+      logoHTML = `<span class="patrocinador-placeholder-logo">${pat.nome}</span>`;
+    }
+
+    if (pat.link) {
+      div.innerHTML = `
+        <a href="${pat.link}" target="_blank" rel="noopener" class="patrocinador-logo-wrapper" style="width:100%; height:100%; display:flex; align-items:center; justify-content:center; text-decoration:none;">
+          ${logoHTML}
+        </a>
+      `;
+    } else {
+      div.innerHTML = `
+        <div class="patrocinador-logo-wrapper">
+          ${logoHTML}
+        </div>
+      `;
+    }
+    
+    container.appendChild(div);
+  });
+}
+
+function estaNoHorario(horarioStr) {
+  try {
+    const agora = new Date();
+    const horaAtualMinutos = agora.getHours() * 60 + agora.getMinutes();
+    
+    const partes = horarioStr.split("-").map(p => p.trim());
+    if (partes.length !== 2) return false;
+    
+    const [hInicio, mInicio] = partes[0].split(":").map(Number);
+    const [hFim, mFim] = partes[1].split(":").map(Number);
+    
+    const totalInicio = hInicio * 60 + (mInicio || 0);
+    let totalFim = hFim * 60 + (mFim || 0);
+    
+    if (totalFim < totalInicio) {
+      return horaAtualMinutos >= totalInicio || horaAtualMinutos < totalFim;
+    }
+    
+    return horaAtualMinutos >= totalInicio && horaAtualMinutos < totalFim;
+  } catch (e) {
+    return false;
+  }
+}
+
+function renderAoVivoDestaque(schedules, hosts) {
+  const container = document.querySelector(".aovivo-container");
+  if (!container) return;
+
+  let programaAtivo = schedules.find(p => estaNoHorario(p.horario));
+  let idxAtivo = schedules.findIndex(p => estaNoHorario(p.horario));
+  
+  if (!programaAtivo && schedules.length > 0) {
+    programaAtivo = schedules.find(p => p.ordem === 4) || schedules[0];
+    idxAtivo = schedules.findIndex(p => p.id === programaAtivo.id);
+  }
+
+  if (!programaAtivo) return;
+
+  const locutorAtivo = hosts.find(h => h.nome.toLowerCase() === programaAtivo.locutor.toLowerCase()) || {
+    foto: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=80&w=400&h=400",
+    nome: programaAtivo.locutor
+  };
+
+  const nextIdx = (idxAtivo + 1) % schedules.length;
+  const proximoPrograma = schedules[nextIdx] || schedules[0];
+  let proximoHorario = proximoPrograma ? proximoPrograma.horario.split("-")[0].trim() : "";
+
+  container.innerHTML = `
+    <!-- Locutor de Plantão -->
+    <div class="aovivo-card-principal reveal active">
+      <div class="aovivo-locutor-photo">
+        <img src="${locutorAtivo.foto}" alt="${programaAtivo.locutor}" loading="lazy">
+      </div>
+      <div class="aovivo-details">
+        <span class="aovivo-status-badge">No Comando</span>
+        <h3 class="aovivo-show-name">${programaAtivo.titulo}</h3>
+        <p class="aovivo-locutor-name">${programaAtivo.locutor}</p>
+        <p class="aovivo-time" aria-label="Horário: das ${programaAtivo.horario}">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"></circle>
+            <polyline points="12 6 12 12 16 14"></polyline>
+          </svg>
+          ${programaAtivo.horario}
+        </p>
+      </div>
+    </div>
+
+    <!-- Próximo Programa -->
+    <div class="proximo-card reveal active" style="transition-delay: 0.15s;">
+      <span class="proximo-title">Próxima Atração</span>
+      <h3 class="proximo-show-name">${proximoPrograma.titulo}</h3>
+      <p class="proximo-locutor">por ${proximoPrograma.locutor}</p>
+      <span class="proximo-time">A partir das ${proximoHorario}</span>
+    </div>
+  `;
 }

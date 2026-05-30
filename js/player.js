@@ -29,11 +29,14 @@ let stickyVinylDisc;
 const MOCK_PLAYLIST = [
   { musica: "Training Season", artista: "Dua Lipa" },
   { musica: "Meti o Pé", artista: "Gusttavo Lima" },
+  { musica: "Espaço Comercial", artista: "Rádio Pulso 98.7 FM" },
   { musica: "Viva La Vida", artista: "Coldplay" },
   { musica: "Hear Me Now", artista: "Alok feat. Bruno Martini" },
+  { musica: "Intervalo Comercial", artista: "Momento de Ofertas" },
   { musica: "Haverá Sinais", artista: "Jorge & Mateus & Lauana Prado" },
   { musica: "Flowers", artista: "Miley Cyrus" },
   { musica: "Erro Gostoso", artista: "Simone Mendes" },
+  { musica: "Identificador de Emissora", artista: "Pulso FM - O Pulso de Vila Velha" },
   { musica: "Blinding Lights", artista: "The Weeknd" }
 ];
 
@@ -253,33 +256,174 @@ function handleStickyVolumeChange(e) {
   updateMuteState(value == 0);
 }
 
-// Simular atualização de metadados RDS nos dois players
-function updateMetadata() {
+// Busca metadados reais da transmissão Shoutcast (via API segura HTTPS)
+async function buscarMetadadosReais() {
+  const SECURE_STATS_URL = "https://radio.saopaulo01.com.br/8222/stats?sid=1";
+  
+  try {
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 2500); // Timeout rápido de 2.5s
+    
+    const response = await fetch(SECURE_STATS_URL, {
+      signal: controller.signal,
+      headers: {
+        "Accept": "text/xml, application/xml"
+      }
+    });
+    
+    clearTimeout(timeoutId);
+    
+    if (!response.ok) throw new Error("HTTP erro");
+    
+    const xmlText = await response.text();
+    const parser = new DOMParser();
+    const xmlDoc = parser.parseFromString(xmlText, "text/xml");
+    
+    const songTitleNode = xmlDoc.getElementsByTagName("SONGTITLE")[0];
+    const songTitle = songTitleNode ? songTitleNode.textContent.trim() : "";
+    
+    if (songTitle && songTitle.length > 0) {
+      const partes = songTitle.split(" - ");
+      if (partes.length >= 2) {
+        return {
+          musica: partes[1].trim(),
+          artista: partes[0].trim()
+        };
+      } else {
+        return {
+          musica: songTitle,
+          artista: "Ao Vivo"
+        };
+      }
+    }
+  } catch (err) {
+    // Falha silenciosa para CORS, offline ou firewall do Shoutcast
+    console.warn("[RDS] Não foi possível obter metadados ao vivo diretamente do servidor de streaming. Ativando transição híbrida de rádio.");
+  }
+  return null;
+}
+
+// Busca capa do álbum / arte da música usando a API pública e gratuita do iTunes (CORS habilitado por padrão)
+async function buscarCapaAlbum(artista, musica) {
+  const query = encodeURIComponent(`${artista} ${musica}`);
+  const url = `https://itunes.apple.com/search?term=${query}&entity=song&limit=1`;
+  
+  try {
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 2000); // Timeout de 2s
+    
+    const response = await fetch(url, { signal: controller.signal });
+    clearTimeout(timeoutId);
+    
+    if (response.ok) {
+      const data = await response.json();
+      if (data.results && data.results.length > 0) {
+        const artworkUrl = data.results[0].artworkUrl100;
+        // Converte o tamanho da capa de 100x100 para 400x400 para excelente definição nos vinis
+        return artworkUrl.replace("100x100bb.jpg", "400x400bb.jpg");
+      }
+    }
+  } catch (e) {
+    console.warn("[RDS Artwork] Erro ao buscar capa do álbum no iTunes Search API:", e);
+  }
+  return null;
+}
+
+// Verifica se os metadados ativos indicam um bloco comercial, propaganda ou vinheta
+function verificarPropaganda(artista, musica) {
+  const art = artista.toLowerCase();
+  const mus = musica.toLowerCase();
+  
+  const termos = [
+    "propaganda", "comercial", "vinheta", "prefixo", "intervalo", 
+    "identificador", "promo", "publicidade", "patrocinio", "informe",
+    "espaco comercial", "hora certa", "vinheta de transicao", "spots",
+    "massa fm", "pulso fm", "radio pulso", "aovivo", "ao vivo", "anuncio"
+  ];
+  
+  return termos.some(termo => art.includes(termo) || mus.includes(termo));
+}
+
+// Atualizar metadados RDS nos dois players (principal e sticky)
+async function updateMetadata() {
   if (!txtMusicaAtual || !txtArtistaAtual) return;
   
-  const currentSong = MOCK_PLAYLIST[playlistIndex];
+  // Tentar capturar metadados em tempo real da transmissão Shoutcast
+  const realMeta = await buscarMetadadosReais();
   
+  let musicaExibir = "";
+  let artistaExibir = "";
+  
+  if (realMeta) {
+    musicaExibir = realMeta.musica;
+    artistaExibir = realMeta.artista;
+  } else {
+    // Se o Shoutcast não transmitir metadados ou se der CORS/bloqueio,
+    // ativamos a rotação dinâmica de sucessos para manter o visual ativo
+    const currentSong = MOCK_PLAYLIST[playlistIndex];
+    musicaExibir = currentSong.musica;
+    artistaExibir = currentSong.artista;
+    
+    playlistIndex = (playlistIndex + 1) % MOCK_PLAYLIST.length;
+  }
+  
+  // Efeito fade-out suave ao trocar as informações nos displays
   txtMusicaAtual.style.opacity = 0;
   txtArtistaAtual.style.opacity = 0;
   if (txtStickyMusica) txtStickyMusica.style.opacity = 0;
   if (txtStickyArtista) txtStickyArtista.style.opacity = 0;
   
+  // Verificar se o metadado atual é uma propaganda/comercial/vinheta
+  const ehPropaganda = verificarPropaganda(artistaExibir, musicaExibir);
+  let coverUrl = null;
+  
+  if (ehPropaganda) {
+    // Se for comercial/vinheta, carrega a logo oficial circular da rádio Pulso FM
+    coverUrl = "./assets/icons/icon-512x512.png";
+  } else {
+    // Se for música normal, busca capa do álbum de forma assíncrona baseada na faixa ativa
+    coverUrl = await buscarCapaAlbum(artistaExibir, musicaExibir);
+  }
+  
   setTimeout(() => {
-    txtMusicaAtual.textContent = currentSong.musica;
-    txtArtistaAtual.textContent = currentSong.artista;
-    if (txtStickyMusica) txtStickyMusica.textContent = currentSong.musica;
-    if (txtStickyArtista) txtStickyArtista.textContent = currentSong.artista;
+    txtMusicaAtual.textContent = musicaExibir;
+    txtArtistaAtual.textContent = artistaExibir;
+    if (txtStickyMusica) txtStickyMusica.textContent = musicaExibir;
+    if (txtStickyArtista) txtStickyArtista.textContent = artistaExibir;
     
+    // Atualizar capas nos vinis giratórios
+    if (coverUrl) {
+      if (playerVinyl) {
+        playerVinyl.style.background = `url('${coverUrl}')`;
+        playerVinyl.style.backgroundSize = "cover";
+        playerVinyl.style.backgroundPosition = "center";
+      }
+      if (stickyVinylDisc) {
+        stickyVinylDisc.style.background = `url('${coverUrl}')`;
+        stickyVinylDisc.style.backgroundSize = "cover";
+        stickyVinylDisc.style.backgroundPosition = "center";
+      }
+    } else {
+      // Se não achar capa correspondente, retorna ao vinil clássico preto com gradiente
+      const defaultVinylBg = "radial-gradient(circle, #333 10%, #111 60%, #000 100%)";
+      if (playerVinyl) {
+        playerVinyl.style.background = defaultVinylBg;
+      }
+      if (stickyVinylDisc) {
+        stickyVinylDisc.style.background = defaultVinylBg;
+      }
+    }
+    
+    // Fade-in suave com os metadados atualizados
     txtMusicaAtual.style.opacity = 1;
     txtArtistaAtual.style.opacity = 1;
     if (txtStickyMusica) txtStickyMusica.style.opacity = 1;
     if (txtStickyArtista) txtStickyArtista.style.opacity = 1;
   }, 300);
-
-  playlistIndex = (playlistIndex + 1) % MOCK_PLAYLIST.length;
 }
 
 function startMetadataSimulation() {
   if (metadataInterval) clearInterval(metadataInterval);
-  metadataInterval = setInterval(updateMetadata, 18000); // Muda a música a cada 18 segundos
+  // Monitora e atualiza a música a cada 15 segundos para manter o player dinâmico
+  metadataInterval = setInterval(updateMetadata, 15000);
 }
