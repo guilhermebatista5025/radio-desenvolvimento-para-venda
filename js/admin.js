@@ -105,19 +105,14 @@ document.addEventListener("DOMContentLoaded", () => {
   configurarEventosGerais();
 });
 
-// Verifica se há sessão ativa no sessionStorage (fecha se não autenticado)
+// Verifica se há sessão ativa (liberado sem login temporariamente)
 function verificarSessao() {
   const loginOverlay = document.getElementById("login-overlay");
   const adminLayout = document.getElementById("admin-layout");
   
-  if (sessionStorage.getItem("admin_authenticated") === "true") {
-    loginOverlay.style.display = "none";
-    adminLayout.style.display = "flex";
-    carregarListagemAtiva();
-  } else {
-    loginOverlay.style.display = "flex";
-    adminLayout.style.display = "none";
-  }
+  if (loginOverlay) loginOverlay.style.display = "none";
+  if (adminLayout) adminLayout.style.display = "flex";
+  carregarListagemAtiva();
 }
 
 // Configurar ouvintes de cliques e logins
@@ -126,27 +121,30 @@ function configurarEventosGerais() {
   const formLogin = document.getElementById("form-login");
   const loginErrorMsg = document.getElementById("login-error-msg");
   
-  formLogin.addEventListener("submit", (e) => {
-    e.preventDefault();
-    const user = document.getElementById("username").value.trim();
-    const pass = document.getElementById("password").value.trim();
-    
-    // Credenciais administrativas fixas locais (conforme plano técnico aprovado)
-    if (user === "admin" && pass === "pulso987") {
-      sessionStorage.setItem("admin_authenticated", "true");
-      loginErrorMsg.style.display = "none";
-      verificarSessao();
-    } else {
-      loginErrorMsg.style.display = "block";
-    }
-  });
+  if (formLogin) {
+    formLogin.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const user = document.getElementById("username").value.trim();
+      const pass = document.getElementById("password").value.trim();
+      
+      if (user === "admin" && pass === "pulso987") {
+        sessionStorage.setItem("admin_authenticated", "true");
+        if (loginErrorMsg) loginErrorMsg.style.display = "none";
+        verificarSessao();
+      } else {
+        if (loginErrorMsg) loginErrorMsg.style.display = "block";
+      }
+    });
+  }
 
-  // Logout
+  // Logout (Redireciona para o portal principal)
   const btnLogout = document.getElementById("btn-logout");
-  btnLogout.addEventListener("click", () => {
-    sessionStorage.removeItem("admin_authenticated");
-    verificarSessao();
-  });
+  if (btnLogout) {
+    btnLogout.addEventListener("click", () => {
+      sessionStorage.removeItem("admin_authenticated");
+      window.location.href = "./index.html";
+    });
+  }
 
   // Toggles de Abas (Sidebar Menu)
   const menuItems = document.querySelectorAll(".menu-item");
@@ -212,6 +210,7 @@ function carregarListagemAtiva() {
   if (activeTabId === "tab-programacao") renderizarListaProgramacao();
   if (activeTabId === "tab-locutores") renderizarListaLocutores();
   if (activeTabId === "tab-patrocinadores") renderizarListaPatrocinadores();
+  if (activeTabId === "tab-live") inicializarTabLive();
 }
 
 // ==========================================
@@ -534,3 +533,205 @@ window.deletarPatrocinador = function(id) {
     renderizarListaPatrocinadores();
   }
 };
+
+// ==========================================
+// E. LIVE STREAM — Gerenciar Link da Live
+// ==========================================
+const LIVE_URL_KEY = "PULSO_LIVE_URL";
+
+/**
+ * Converte QUALQUER formato de URL do YouTube para o formato /embed/ correto.
+ * Suporta:
+ *   - https://www.youtube.com/watch?v=VIDEO_ID
+ *   - https://www.youtube.com/live/VIDEO_ID
+ *   - https://youtu.be/VIDEO_ID
+ *   - https://www.youtube.com/shorts/VIDEO_ID
+ *   - https://www.youtube.com/embed/VIDEO_ID  (já correto, retorna sem alteração)
+ * Retorna null se não conseguir extrair o ID.
+ */
+function converterParaEmbedYouTube(rawUrl) {
+  if (!rawUrl) return null;
+  const url = rawUrl.trim();
+
+  let videoId = null;
+
+  // Já é embed (youtube.com ou youtube-nocookie.com) — extrai só o ID
+  const embedMatch = url.match(/youtube(?:-nocookie)?\.com\/embed\/([a-zA-Z0-9_-]{11})/);
+  if (embedMatch) videoId = embedMatch[1];
+
+  // Formato: /live/VIDEO_ID
+  if (!videoId) {
+    const liveMatch = url.match(/youtube\.com\/live\/([a-zA-Z0-9_-]{11})/);
+    if (liveMatch) videoId = liveMatch[1];
+  }
+
+  // Formato: /watch?v=VIDEO_ID
+  if (!videoId) {
+    const watchMatch = url.match(/[?&]v=([a-zA-Z0-9_-]{11})/);
+    if (watchMatch) videoId = watchMatch[1];
+  }
+
+  // Formato: youtu.be/VIDEO_ID
+  if (!videoId) {
+    const shortMatch = url.match(/youtu\.be\/([a-zA-Z0-9_-]{11})/);
+    if (shortMatch) videoId = shortMatch[1];
+  }
+
+  // Formato: /shorts/VIDEO_ID
+  if (!videoId) {
+    const shortsMatch = url.match(/youtube\.com\/shorts\/([a-zA-Z0-9_-]{11})/);
+    if (shortsMatch) videoId = shortsMatch[1];
+  }
+
+  if (!videoId) return null;
+  // Usa youtube-nocookie.com — tem menos restrições de embedding
+  return `https://www.youtube-nocookie.com/embed/${videoId}`;
+}
+
+function mostrarToastAdmin(mensagem, tipo = "info") {
+  // Remove toast anterior se existir
+  const existing = document.getElementById("admin-toast");
+  if (existing) existing.remove();
+
+  const toast = document.createElement("div");
+  toast.id = "admin-toast";
+  const cor = tipo === "success" ? "#25d366" : tipo === "error" ? "#cf0000" : "#f59e0b";
+  toast.style.cssText = `
+    position: fixed; bottom: 30px; right: 30px; z-index: 9999;
+    background: #1e293b; color: #fff; border-left: 4px solid ${cor};
+    padding: 14px 20px; border-radius: 10px; font-size: 0.88rem;
+    font-weight: 600; max-width: 360px; box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+    animation: slideInToast 0.3s ease;
+  `;
+  toast.innerHTML = `<style>@keyframes slideInToast{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}</style>${mensagem}`;
+  document.body.appendChild(toast);
+  setTimeout(() => toast.remove(), 4000);
+}
+
+function inicializarTabLive() {
+  const savedUrl = localStorage.getItem(LIVE_URL_KEY) || "";
+  const inputEl = document.getElementById("live-url-input");
+  const linkTextEl = document.getElementById("live-current-link-text");
+  const statusBadge = document.getElementById("live-current-status");
+
+  // Preenche o input com a URL embed salva (se houver)
+  if (inputEl && savedUrl) {
+    inputEl.value = savedUrl;
+  }
+
+  // Exibe o link atual publicado
+  if (linkTextEl) {
+    linkTextEl.textContent = savedUrl || "Nenhum link configurado.";
+  }
+
+  // Atualiza o badge de status
+  if (statusBadge) {
+    if (savedUrl) {
+      statusBadge.textContent = "✓ Live Ativa";
+      statusBadge.style.background = "rgba(37, 211, 102, 0.15)";
+      statusBadge.style.color = "#25d366";
+      statusBadge.style.border = "1px solid rgba(37, 211, 102, 0.3)";
+    } else {
+      statusBadge.textContent = "Sem Transmissão";
+      statusBadge.style.background = "rgba(148, 163, 184, 0.1)";
+      statusBadge.style.color = "#94a3b8";
+      statusBadge.style.border = "1px solid rgba(148, 163, 184, 0.2)";
+    }
+  }
+
+  // Botão Pré-visualizar
+  const btnPreview = document.getElementById("btn-live-preview");
+  if (btnPreview && !btnPreview._listenerAttached) {
+    btnPreview._listenerAttached = true;
+    btnPreview.addEventListener("click", () => {
+      const rawUrl = (document.getElementById("live-url-input").value || "").trim();
+      if (!rawUrl) {
+        mostrarToastAdmin("⚠️ Cole o link do YouTube antes de pré-visualizar.", "error");
+        return;
+      }
+
+      const embedUrl = converterParaEmbedYouTube(rawUrl);
+      if (!embedUrl) {
+        mostrarToastAdmin("❌ Não foi possível reconhecer o link do YouTube. Use um link de vídeo ou live válido.", "error");
+        return;
+      }
+
+      // Atualiza o input para mostrar o URL convertido
+      const inputField = document.getElementById("live-url-input");
+      if (rawUrl.replace("youtube.com", "youtube-nocookie.com").split("?")[0] !== embedUrl) {
+        inputField.value = embedUrl;
+        mostrarToastAdmin("🔄 Link convertido automaticamente para o formato de incorporação!", "success");
+      }
+
+      // Adiciona parâmetros para a preview
+      const previewUrl = embedUrl + "?autoplay=1&mute=1&rel=0&modestbranding=1&playsinline=1";
+
+      const previewIframe = document.getElementById("live-preview-iframe");
+      const placeholder = document.getElementById("live-preview-placeholder");
+      const meta = document.getElementById("live-preview-meta");
+      const warningEl = document.getElementById("live-embed-warning");
+
+      // Remove aviso anterior
+      if (warningEl) warningEl.remove();
+
+      previewIframe.src = previewUrl;
+      placeholder.style.display = "none";
+      previewIframe.style.display = "block";
+      if (meta) meta.style.display = "flex";
+
+      // Detecta se o vídeo carregou ou foi bloqueado
+      previewIframe.onload = () => {
+        // Tenta verificar se o iframe carregou conteúdo real
+        // (só funciona em same-origin, mas ao menos confirmamos que o load disparou)
+        mostrarToastAdmin("▶ Preview carregada! Se aparecer tela preta ou erro, o canal pode ter o embed desativado.", "info");
+      };
+    });
+  }
+
+  // Botão Publicar
+  const btnPublish = document.getElementById("btn-live-publish");
+  if (btnPublish && !btnPublish._listenerAttached) {
+    btnPublish._listenerAttached = true;
+    btnPublish.addEventListener("click", () => {
+      const rawUrl = (document.getElementById("live-url-input").value || "").trim();
+      if (!rawUrl) {
+        mostrarToastAdmin("⚠️ Cole o link do YouTube antes de publicar.", "error");
+        return;
+      }
+
+      const embedUrl = converterParaEmbedYouTube(rawUrl);
+      if (!embedUrl) {
+        mostrarToastAdmin("❌ Link inválido. Verifique o URL do YouTube e tente novamente.", "error");
+        return;
+      }
+
+      localStorage.setItem(LIVE_URL_KEY, embedUrl);
+      document.getElementById("live-url-input").value = embedUrl;
+      inicializarTabLive(); // Atualiza o status
+      mostrarToastAdmin("✅ Transmissão publicada! A live já está visível no site principal.", "success");
+    });
+  }
+
+  // Botão Remover Transmissão
+  const btnClear = document.getElementById("btn-live-clear");
+  if (btnClear && !btnClear._listenerAttached) {
+    btnClear._listenerAttached = true;
+    btnClear.addEventListener("click", () => {
+      if (confirm("Deseja remover a transmissão ao vivo do site? O embed será ocultado no portal.")) {
+        localStorage.removeItem(LIVE_URL_KEY);
+        const inputEl2 = document.getElementById("live-url-input");
+        const previewIframe = document.getElementById("live-preview-iframe");
+        const placeholder = document.getElementById("live-preview-placeholder");
+        const meta = document.getElementById("live-preview-meta");
+
+        if (inputEl2) inputEl2.value = "";
+        if (previewIframe) { previewIframe.src = ""; previewIframe.style.display = "none"; }
+        if (placeholder) placeholder.style.display = "flex";
+        if (meta) meta.style.display = "none";
+
+        inicializarTabLive(); // Atualiza o status
+        mostrarToastAdmin("🔴 Transmissão removida do site.", "info");
+      }
+    });
+  }
+}

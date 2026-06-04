@@ -200,6 +200,9 @@ img {
   border: 1.5px solid rgba(166, 124, 30, 0.3);
   border-radius: 20px;
   transition: var(--transition);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
 }
 
 .nav-link-destaque:hover {
@@ -824,40 +827,54 @@ img {
 
 /* 6. Ao Vivo Agora (Locutor) */
 .aovivo-section {
-  padding: 100px 5%;
+  padding: 60px 0;
   background-color: var(--bg-primary);
 }
 
 .aovivo-container {
-  max-width: 1100px;
+  max-width: 100%;
   margin: 0 auto;
   display: grid;
-  grid-template-columns: 1.3fr 1fr;
-  gap: 40px;
-  align-items: stretch;
+  grid-template-columns: 1fr;
+  gap: 24px;
 }
 
 .aovivo-card-principal {
-  background: var(--bg-card);
-  backdrop-filter: var(--glass-filter);
-  -webkit-backdrop-filter: var(--glass-filter);
-  border: 1px solid var(--border-glass);
-  border-radius: 24px;
-  padding: 40px;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+  padding: 30px;
   display: flex;
   align-items: center;
   gap: 30px;
-  box-shadow: var(--shadow-dark);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.aovivo-card-principal::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 100%;
+  background-color: var(--color-red);
+}
+
+.aovivo-locutor-photo-wrapper {
+  position: relative;
+  flex-shrink: 0;
 }
 
 .aovivo-locutor-photo {
-  width: 180px;
-  height: 180px;
-  border-radius: 20px;
-  border: 2px solid var(--color-gold);
+  width: 130px;
+  height: 130px;
+  border-radius: 12px;
+  border: 3px solid var(--color-red);
   overflow: hidden;
-  box-shadow: var(--shadow-gold);
-  flex-shrink: 0;
+  box-shadow: 0 4px 12px rgba(214, 48, 49, 0.15);
 }
 
 .aovivo-locutor-photo img {
@@ -866,87 +883,187 @@ img {
   object-fit: cover;
 }
 
-.aovivo-details {
+.aovivo-photo-badge {
+  position: absolute;
+  bottom: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: var(--color-red);
+  color: #ffffff;
+  font-size: 0.65rem;
+  font-weight: 800;
+  letter-spacing: 1px;
+  padding: 3px 10px;
+  border-radius: 4px;
+  box-shadow: 0 2px 8px rgba(214, 48, 49, 0.3);
+  animation: pulse-red-bg 2s infinite;
+}
+
+.aovivo-details-middle {
   flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.aovivo-status-row {
+  display: flex;
+  align-items: center;
 }
 
 .aovivo-status-badge {
   display: inline-block;
-  background-color: var(--color-red);
-  color: var(--color-white);
+  background-color: rgba(214, 48, 49, 0.1);
+  color: var(--color-red);
+  border: 1px solid rgba(214, 48, 49, 0.2);
   font-size: 0.7rem;
   font-weight: 700;
   letter-spacing: 1px;
   padding: 4px 10px;
   border-radius: 6px;
   text-transform: uppercase;
-  margin-bottom: 12px;
-  animation: pulse-red-bg 2s infinite;
 }
 
 .aovivo-show-name {
-  font-family: var(--font-accent);
+  font-family: var(--font-primary);
   font-size: 1.8rem;
-  font-weight: 700;
-  margin-bottom: 4px;
+  font-weight: 800;
+  color: #111111;
+  margin: 0;
+  line-height: 1.2;
 }
 
-.aovivo-locutor-name {
-  color: var(--color-gold);
-  font-weight: 600;
-  font-size: 1.1rem;
-  margin-bottom: 8px;
-}
-
-.aovivo-time {
-  font-size: 0.9rem;
-  color: var(--color-gray);
+.aovivo-locutor-row {
   display: flex;
   align-items: center;
   gap: 6px;
+  color: #555555;
 }
 
-.aovivo-time svg {
-  color: var(--color-gold);
+.aovivo-locutor-row .locutor-icon {
+  stroke: var(--color-red);
+  flex-shrink: 0;
 }
 
-.proximo-card {
-  background: rgba(0, 0, 0, 0.03);
-  border: 1px solid rgba(0, 0, 0, 0.05);
-  border-radius: 24px;
-  padding: 35px;
+.aovivo-locutor-name {
+  font-weight: 600;
+  font-size: 1.05rem;
+  color: #333333;
+}
+
+.aovivo-details-right {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  align-items: flex-end;
+  gap: 12px;
+  flex-shrink: 0;
 }
 
-.proximo-title {
-  color: var(--color-gold);
-  text-transform: uppercase;
-  font-size: 0.8rem;
+.aovivo-time-box {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background-color: #f1f5f9;
+  border: 1px solid #e2e8f0;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-size: 0.9rem;
   font-weight: 700;
-  letter-spacing: 2px;
-  margin-bottom: 15px;
-  border-left: 3px solid var(--color-gold);
-  padding-left: 10px;
+  color: #334155;
 }
 
-.proximo-show-name {
-  font-size: 1.4rem;
-  font-weight: 600;
-  margin-bottom: 4px;
+.aovivo-time-box .time-icon {
+  stroke: var(--color-red);
 }
 
-.proximo-locutor {
-  color: var(--color-gray);
-  font-size: 1rem;
-  margin-bottom: 10px;
+.aovivo-waveform-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background-color: #1e293b;
+  padding: 6px 12px;
+  border-radius: 6px;
 }
 
-.proximo-time {
+.waveform-label {
+  color: #94a3b8;
+  font-size: 0.65rem;
+  font-weight: 800;
+  letter-spacing: 1px;
+}
+
+.aovivo-waveform {
+  display: flex;
+  align-items: flex-end;
+  gap: 3px;
+  height: 16px;
+  width: 32px;
+}
+
+.wave-bar {
+  display: block;
+  width: 3px;
+  height: 100%;
+  background-color: var(--color-red);
+  border-radius: 2px;
+  animation: aovivo-wave-bounce 0.5s ease-in-out infinite alternate;
+}
+
+.wave-bar:nth-child(1) { animation-delay: 0.1s; height: 30%; }
+.wave-bar:nth-child(2) { animation-delay: 0.3s; height: 60%; }
+.wave-bar:nth-child(3) { animation-delay: 0.6s; height: 40%; }
+.wave-bar:nth-child(4) { animation-delay: 0.2s; height: 80%; }
+.wave-bar:nth-child(5) { animation-delay: 0.5s; height: 50%; }
+.wave-bar:nth-child(6) { animation-delay: 0.4s; height: 70%; }
+
+.btn-aovivo-request {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background-color: #25d366;
+  color: #ffffff;
   font-size: 0.85rem;
-  color: var(--color-gold);
+  font-weight: 700;
+  padding: 10px 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(37, 211, 102, 0.2);
+  transition: all 0.3s ease;
+  text-decoration: none;
 }
+
+.btn-aovivo-request:hover {
+  background-color: #20ba5a;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 14px rgba(37, 211, 102, 0.3);
+  color: #ffffff;
+}
+
+.btn-aovivo-request .wpp-icon {
+  fill: currentColor;
+  stroke: none;
+}
+
+@keyframes aovivo-wave-bounce {
+  0% {
+    height: 20%;
+  }
+  100% {
+    height: 100%;
+  }
+}
+
+@keyframes pulse-red-bg {
+  0% {
+    box-shadow: 0 0 0 0 rgba(214, 48, 49, 0.4);
+  }
+  70% {
+    box-shadow: 0 0 0 8px rgba(214, 48, 49, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(214, 48, 49, 0);
+  }
+}
+
 
 /* 7. Notícias */
 .noticias-section {
@@ -2179,13 +2296,45 @@ textarea.form-input {
   
   .aovivo-card-principal {
     flex-direction: column;
-    padding: 25px;
+    padding: 25px 20px;
     text-align: center;
+    align-items: center;
+    gap: 24px;
+  }
+  
+  .aovivo-locutor-photo-wrapper {
+    margin-bottom: 5px;
   }
   
   .aovivo-locutor-photo {
-    width: 140px;
-    height: 140px;
+    width: 120px;
+    height: 120px;
+  }
+  
+  .aovivo-details-middle {
+    align-items: center;
+    text-align: center;
+    padding-left: 0;
+  }
+  
+  .aovivo-locutor-row {
+    justify-content: center;
+  }
+  
+  .aovivo-details-right {
+    align-items: center;
+    width: 100%;
+    gap: 16px;
+  }
+  
+  .aovivo-time-box {
+    width: 100%;
+    justify-content: center;
+  }
+  
+  .btn-aovivo-request {
+    width: 100%;
+    justify-content: center;
   }
   
   .contato-form-col {
@@ -2216,7 +2365,7 @@ textarea.form-input {
    ========================================================================== */
 
 /* Spacing offset for the main document so sticky bar never covers text */
-body {
+body:has(.sticky-player-bar.visible) {
   padding-bottom: 90px;
 }
 
@@ -2273,7 +2422,12 @@ body {
   display: flex;
   align-items: center;
   padding: 0 5%;
-  transition: var(--transition);
+  transform: translateY(100%); /* Oculto por padrão */
+  transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), background-color 0.3s, border-color 0.3s;
+}
+
+.sticky-player-bar.visible {
+  transform: translateY(0); /* Exibido ao dar play */
 }
 
 .sticky-player-container {
@@ -2525,7 +2679,7 @@ body {
    ========================================================================== */
 
 @media (max-width: 768px) {
-  body {
+  body:has(.sticky-player-bar.visible) {
     padding-bottom: 80px;
   }
 
@@ -2636,7 +2790,1236 @@ body {
   font-family: var(--font-primary);
   font-size: 0.95rem;
   font-weight: 600;
-  color: var(--color-gold);
+  color: var(--color-red);
   letter-spacing: 0.5px;
 }
+
+/* ==========================================================================
+   PORTAL LEO DIAS / REDESENHO RETRO PREMIUM
+   ========================================================================== */
+
+/* Substituição de Variáveis para Tema Vermelho */
+:root {
+  --color-red: #cf0000;
+  --color-red-hover: #b30000;
+  --color-gold: #cf0000; /* Substituir referências antigas */
+  --color-gold-hover: #b30000;
+  --border-glass: rgba(207, 0, 0, 0.15);
+  --shadow-gold: 0 4px 14px rgba(207, 0, 0, 0.15);
+}
+
+/* Overrides no Header para Marca Vermelha */
+.header-logo-text span {
+  color: var(--color-red) !important;
+}
+.btn-ouvir-header {
+  background-color: var(--color-red) !important;
+  border-color: var(--color-red) !important;
+}
+.btn-ouvir-header:hover {
+  color: var(--color-red) !important;
+  background-color: transparent !important;
+}
+.nav-link:hover, .nav-link.active {
+  color: var(--color-red) !important;
+}
+.nav-link::after {
+  background-color: var(--color-red) !important;
+}
+.nav-link-destaque {
+  color: var(--color-red) !important;
+  border-color: rgba(207, 0, 0, 0.3) !important;
+}
+.nav-link-destaque:hover {
+  background: rgba(207, 0, 0, 0.08) !important;
+  border-color: var(--color-red) !important;
+  color: var(--color-red-hover) !important;
+}
+
+/* 1. Letreiro de Tendências (Trend News Ticker) */
+.portal-trend-news {
+  display: flex;
+  align-items: center;
+  background-color: #111;
+  border-bottom: 2px solid var(--color-red);
+  height: 44px;
+  overflow: hidden;
+  margin-top: 80px; /* Logo abaixo do header fixo */
+  position: relative;
+  z-index: 99;
+}
+
+.portal-trend-label {
+  background-color: var(--color-red);
+  color: #fff;
+  font-family: var(--font-primary);
+  font-size: 0.85rem;
+  font-weight: 800;
+  padding: 0 20px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+  letter-spacing: 0.5px;
+  position: relative;
+  z-index: 2;
+  box-shadow: 5px 0 15px rgba(0,0,0,0.5);
+}
+
+.portal-trend-label::after {
+  content: "";
+  position: absolute;
+  right: -10px;
+  top: 0;
+  width: 0;
+  height: 0;
+  border-top: 22px solid transparent;
+  border-bottom: 22px solid transparent;
+  border-left: 10px solid var(--color-red);
+}
+
+.portal-trend-wrapper {
+  flex: 1;
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.portal-trend-marquee {
+  display: flex;
+  gap: 40px;
+  white-space: nowrap;
+  animation: scroll-marquee 45s linear infinite;
+  padding-left: 20px;
+}
+
+.portal-trend-marquee:hover {
+  animation-play-state: paused;
+}
+
+.ticker-link {
+  color: #eee;
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: color 0.2s ease;
+}
+
+.ticker-link:hover {
+  color: var(--color-red);
+}
+
+.ticker-bullet {
+  color: var(--color-red);
+  font-weight: 800;
+}
+
+@keyframes scroll-marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* 2. Grade de Layout Principal */
+.portal-layout-grid {
+  display: grid;
+  grid-template-columns: 310px 1fr 310px;
+  gap: 24px;
+  max-width: 1520px;
+  margin: 30px auto;
+  padding: 0 20px;
+  align-items: start;
+}
+
+/* 3. Estilização de Sidebars */
+.portal-sidebar-left,
+.portal-sidebar-right {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* Cabeçalho de Seção no Portal */
+.portal-section-header {
+  border-bottom: 2px solid #222;
+  margin-bottom: 20px;
+  padding-bottom: 8px;
+  position: relative;
+}
+
+.portal-section-header::after {
+  content: "";
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 60px;
+  height: 2px;
+  background-color: var(--color-red);
+}
+
+.portal-section-header.center::after {
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.portal-section-title {
+  font-family: var(--font-primary);
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: #111;
+  letter-spacing: 0.5px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.portal-section-title .title-icon {
+  width: 20px;
+  height: 20px;
+  stroke: currentColor;
+  stroke-width: 2;
+  fill: none;
+  flex-shrink: 0;
+}
+
+/* 4. Notícias Horizontais (Leo Dias Style) */
+.portal-news-row {
+  display: flex;
+  gap: 12px;
+  padding-bottom: 16px;
+  margin-bottom: 16px;
+  border-bottom: 1px solid #e2e8f0;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+  align-items: flex-start;
+}
+
+.portal-news-row:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+.portal-news-row:hover {
+  transform: translateX(3px);
+}
+
+.portal-news-thumb {
+  width: 95px;
+  height: 72px;
+  flex-shrink: 0;
+  border-radius: 6px;
+  overflow: hidden;
+  position: relative;
+  background-color: #e2e2e2;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.portal-news-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.portal-news-row:hover .portal-news-thumb img {
+  transform: scale(1.08);
+}
+
+.portal-news-badge {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  text-align: center;
+  background-color: rgba(17, 17, 17, 0.85);
+  color: #fff;
+  font-size: 0.65rem;
+  font-weight: 700;
+  padding: 2px 0;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.portal-news-badge.badge-local { background-color: var(--color-red); }
+.portal-news-badge.badge-esporte { background-color: #27ae60; }
+.portal-news-badge.badge-entretenimento { background-color: #f39c12; }
+.portal-news-badge.badge-nacional { background-color: #2980b9; }
+
+.portal-news-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.portal-news-date {
+  font-size: 0.7rem;
+  color: #718096;
+  font-weight: 600;
+  display: block;
+  margin-bottom: 4px;
+}
+
+.portal-news-title {
+  font-size: 0.88rem;
+  font-weight: 700;
+  line-height: 1.25;
+  color: #1a202c;
+  margin-bottom: 6px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  transition: color 0.2s ease;
+}
+
+.portal-news-row:hover .portal-news-title {
+  color: var(--color-red);
+}
+
+.portal-news-excerpt {
+  font-size: 0.78rem;
+  color: #4a5568;
+  line-height: 1.35;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.portal-more-news-btn {
+  margin-top: 10px;
+  text-align: center;
+}
+
+.btn-more-news {
+  display: inline-block;
+  color: var(--color-red);
+  font-size: 0.85rem;
+  font-weight: 700;
+  transition: transform 0.2s ease;
+}
+
+.btn-more-news:hover {
+  transform: translateX(4px);
+}
+
+/* 5. Coluna Central */
+.portal-column-center {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+/* Video Live Widget */
+.live-video-section {
+  width: 100%;
+}
+
+.live-video-container {
+  position: relative;
+  padding-bottom: 56.25%; /* 16:9 ratio */
+  height: 0;
+  overflow: hidden;
+  border-radius: 12px;
+  background-color: #000;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.live-video-container iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+/* Sintonizador Digital Premium (Audio Player) */
+.digital-audio-player-section {
+  width: 100%;
+}
+
+.digital-player-console {
+  background: linear-gradient(135deg, #1e1e24 0%, #111115 100%);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-top: 3px solid var(--color-red);
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.25);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 30px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Lado Esquerdo: Capa e Vinil Giratório */
+.player-visual-side {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.player-vinyl-wrapper {
+  position: relative;
+  width: 110px;
+  height: 90px;
+  overflow: visible;
+}
+
+.player-vinyl {
+  width: 90px;
+  height: 90px;
+  background: radial-gradient(circle, #333 10%, #111 60%, #000 100%);
+  border: 2px solid #222;
+  border-radius: 50%;
+  position: absolute;
+  right: 0;
+  top: 0;
+  z-index: 1;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+  transition: transform 0.5s ease, box-shadow 0.5s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.vinyl-label {
+  width: 30px;
+  height: 30px;
+  background-color: var(--color-red);
+  border-radius: 50%;
+  border: 3px solid #111;
+  position: relative;
+}
+
+.vinyl-label::after {
+  content: '';
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 4px;
+  height: 4px;
+  background-color: #fff;
+  border-radius: 50%;
+}
+
+.player-vinyl.playing {
+  animation: spin-vinyl 10s linear infinite;
+  box-shadow: 0 0 20px rgba(214, 48, 49, 0.25), 0 4px 15px rgba(0,0,0,0.2);
+}
+
+.player-vinyl-cover {
+  width: 90px;
+  height: 90px;
+  background: linear-gradient(135deg, var(--color-red) 0%, #850000 100%);
+  border-radius: 8px;
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 2;
+  box-shadow: 3px 4px 12px rgba(0, 0, 0, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+}
+
+.music-note-icon {
+  width: 32px;
+  height: 32px;
+  opacity: 0.9;
+}
+
+/* Lado Central: Display com Metadados e Equalizador */
+.player-info-side {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 0;
+}
+
+.player-status-bar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.player-frequency {
+  background-color: rgba(255, 255, 255, 0.08);
+  color: #e2e8f0;
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 4px;
+  letter-spacing: 0.5px;
+}
+
+.player-live-badge {
+  font-size: 0.75rem;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #64748b;
+  transition: all 0.3s ease;
+}
+
+.player-live-badge.active {
+  color: var(--color-red);
+}
+
+.player-live-badge .bullet {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: #64748b;
+  transition: all 0.3s ease;
+}
+
+.player-live-badge.active .bullet {
+  background-color: var(--color-red);
+  animation: pulse-red 1.2s infinite;
+}
+
+.player-track-display {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.player-track-title {
+  font-family: var(--font-primary);
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: #ffffff;
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1.2;
+}
+
+.player-track-artist {
+  font-family: var(--font-primary);
+  font-size: 0.9rem;
+  color: #94a3b8;
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.player-spectrum-container {
+  height: 24px;
+  display: flex;
+  align-items: flex-end;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  padding-top: 8px;
+  margin-top: 4px;
+}
+
+/* Lado Direito: Botão Play/Pause e Controle de Volume */
+.player-controls-side {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex-shrink: 0;
+}
+
+.btn-digital-play {
+  width: 56px;
+  height: 56px;
+  background-color: var(--color-red);
+  color: #ffffff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(214, 48, 49, 0.3);
+  transition: all 0.2s ease;
+}
+
+.btn-digital-play:hover {
+  background-color: #e04343;
+  transform: scale(1.05);
+  box-shadow: 0 6px 20px rgba(214, 48, 49, 0.4);
+}
+
+.btn-digital-play:active {
+  transform: scale(0.95);
+}
+
+.btn-digital-play svg {
+  width: 22px;
+  height: 22px;
+}
+
+.play-icon-svg {
+  margin-left: 3px;
+}
+
+.digital-volume-block {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(0, 0, 0, 0.3);
+  padding: 8px 14px;
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.btn-digital-mute {
+  color: #94a3b8;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  transition: color 0.2s ease;
+}
+
+.btn-digital-mute:hover,
+.btn-digital-mute.muted {
+  color: var(--color-red);
+}
+
+.digital-volume-slider {
+  -webkit-appearance: none;
+  width: 90px;
+  height: 6px;
+  background: #27272a;
+  border-radius: 3px;
+  outline: none;
+}
+
+.digital-volume-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #ffffff;
+  cursor: pointer;
+  border: 2px solid var(--color-red);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+  transition: all 0.1s ease;
+}
+
+.digital-volume-slider::-webkit-slider-thumb:hover {
+  transform: scale(1.2);
+}
+
+@keyframes spin-vinyl {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@media (max-width: 768px) {
+  .digital-player-console {
+    flex-direction: column;
+    padding: 20px;
+    gap: 20px;
+    align-items: center;
+  }
+  
+  .player-visual-side {
+    margin-bottom: 5px;
+  }
+  
+  .player-info-side {
+    align-items: center;
+    width: 100%;
+  }
+  
+  .player-status-bar {
+    justify-content: center;
+  }
+  
+  .player-track-display {
+    text-align: center;
+    width: 100%;
+  }
+  
+  .player-controls-side {
+    flex-direction: column;
+    width: 100%;
+    gap: 16px;
+    align-items: center;
+  }
+  
+  .digital-volume-block {
+    width: 100%;
+    justify-content: center;
+  }
+  
+  .digital-volume-slider {
+    width: 120px;
+  }
+}
+
+/* 6. Widgets Laterais */
+.portal-widget {
+  background: #fff;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.02);
+}
+
+/* Clima Widget */
+.clima-widget-content {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.clima-cidade-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.85rem;
+  font-weight: 600;
+  padding-bottom: 8px;
+  border-bottom: 1px dashed #e2e8f0;
+  color: #2d3748;
+}
+
+.clima-cidade-row:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.clima-cidade-nome {
+  flex: 1;
+}
+
+.clima-cidade-temp {
+  color: var(--color-red);
+  margin-right: 12px;
+  font-weight: bold;
+}
+
+.clima-cidade-cond {
+  color: #718096;
+  font-size: 0.75rem;
+}
+
+/* Mural de Recados (Guestbook) */
+.guestbook-messages-container {
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  background-color: #f7fafc;
+  height: 250px;
+  overflow-y: auto;
+  padding: 12px;
+}
+
+.guestbook-messages-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.guestbook-item {
+  background-color: #fff;
+  border: 1px solid #edf2f7;
+  border-radius: 6px;
+  padding: 8px 12px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.01);
+}
+
+.guestbook-meta {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: #718096;
+  margin-bottom: 4px;
+}
+
+.guestbook-author {
+  color: var(--color-red);
+}
+
+.guestbook-text {
+  font-size: 0.8rem;
+  color: #2d3748;
+  line-height: 1.35;
+}
+
+/* 7. Equipe de Locutores Retro */
+.locutores-portal-section {
+  padding: 60px 0;
+  background-color: #f8fafc;
+  border-top: 1px solid #edf2f7;
+  border-bottom: 1px solid #edf2f7;
+}
+
+/* Contato Portal Section */
+.contato-portal-section {
+  padding: 60px 0;
+  background-color: #fff;
+}
+
+.btn-form-enviar {
+  background-color: var(--color-red) !important;
+  color: #fff !important;
+  font-weight: bold;
+  padding: 12px 24px;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: var(--transition);
+  box-shadow: var(--shadow-gold);
+  border: none;
+}
+
+.btn-form-enviar:hover {
+  background-color: var(--color-red-hover) !important;
+  transform: translateY(-2px);
+}
+
+/* Sticky player e outros widgets da marca vermelha */
+.sticky-player-bar {
+  border-top-color: var(--color-red) !important;
+}
+.sticky-live-badge.playing,
+.sticky-live-badge {
+  color: var(--color-red) !important;
+}
+.btn-sticky-play {
+  background-color: var(--color-red) !important;
+}
+.btn-sticky-play:hover {
+  background-color: var(--color-red-hover) !important;
+}
+.btn-sticky-request {
+  border-color: var(--color-red) !important;
+  color: var(--color-red) !important;
+}
+.btn-sticky-request:hover {
+  background-color: var(--color-red) !important;
+  color: #fff !important;
+}
+.btn-whatsapp-flutuante {
+  background-color: #25d366 !important;
+}
+
+/* 8. Responsividade do Portal */
+@media (max-width: 1100px) {
+  .portal-layout-grid {
+    grid-template-columns: 280px 1fr;
+  }
+  
+  .portal-sidebar-right {
+    grid-column: span 2;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+  }
+}
+
+@media (max-width: 768px) {
+  .portal-layout-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+    padding: 0 15px;
+  }
+  
+  .portal-sidebar-left,
+  .portal-column-center,
+  .portal-sidebar-right {
+    grid-column: span 1;
+  }
+  
+  .portal-sidebar-right {
+    grid-template-columns: 1fr;
+  }
+  
+  .portal-news-thumb {
+    width: 80px;
+    height: 60px;
+  }
+}
+
+/* Botão de Fechar do Sticky Player (X) */
+.btn-sticky-close {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  background: none;
+  border: none;
+  color: #777;
+  font-size: 1.6rem;
+  line-height: 1;
+  font-weight: bold;
+  cursor: pointer;
+  transition: color 0.2s ease, transform 0.2s ease;
+  z-index: 10000;
+  padding: 5px;
+}
+
+.btn-sticky-close:hover {
+  color: var(--color-red);
+  transform: scale(1.15);
+}
+
+@media (max-width: 768px) {
+  .btn-sticky-close {
+    top: 5px;
+    right: 10px;
+    font-size: 1.4rem;
+  }
+}
+
+/* ==========================================================================
+   WIDGETS DE PUBLICIDADE SIMULADA (PORTAL LEO DIAS STYLE)
+   ========================================================================== */
+
+/* 1. Publicidade Lateral (Left Sidebar Banner) */
+.portal-ad-sidebar-card {
+  background: linear-gradient(135deg, #111 0%, #222 100%);
+  border: 1px solid #333;
+  border-radius: 8px;
+  padding: 16px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+  margin-top: 12px;
+}
+
+.portal-ad-sidebar-card::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(207,0,0,0.15) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.ad-badge {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: rgba(255,255,255,0.08);
+  color: #888;
+  font-size: 0.65rem;
+  font-weight: 700;
+  padding: 2px 6px;
+  border-radius: 3px;
+  letter-spacing: 0.5px;
+}
+
+.ad-banner-link {
+  text-decoration: none;
+  display: block;
+}
+
+.ad-banner-content-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 10px 0;
+}
+
+.ad-banner-content-inner svg.ad-icon {
+  width: 44px;
+  height: 44px;
+  stroke: var(--color-red);
+  stroke-width: 1.5;
+  margin-bottom: 12px;
+  filter: drop-shadow(0 0 8px rgba(207,0,0,0.3));
+}
+
+.ad-banner-content-inner h3 {
+  color: #fff;
+  font-size: 1.1rem;
+  font-weight: 800;
+  margin-bottom: 8px;
+  letter-spacing: 0.5px;
+}
+
+.ad-banner-content-inner p {
+  color: #bbb;
+  font-size: 0.8rem;
+  line-height: 1.4;
+  margin-bottom: 16px;
+}
+
+.ad-cta-btn {
+  background-color: var(--color-red);
+  color: #fff;
+  font-size: 0.85rem;
+  font-weight: 700;
+  padding: 8px 20px;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+  border: 1px solid transparent;
+}
+
+.portal-ad-sidebar-card:hover .ad-cta-btn {
+  background-color: #e60000;
+  box-shadow: 0 0 12px rgba(207,0,0,0.5);
+  transform: translateY(-2px);
+}
+
+/* 2. Publicidade Horizontal (Super Leaderboard) */
+.portal-horizontal-ad-section {
+  width: 100%;
+  max-width: 1320px;
+  margin: 10px auto 40px auto;
+  padding: 0 20px;
+}
+
+.horizontal-ad-card {
+  background: linear-gradient(90deg, #1a1a1a 0%, #111 50%, #1a1a1a 100%);
+  border: 1px solid #333;
+  border-radius: 8px;
+  padding: 20px 24px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: var(--shadow-dark);
+}
+
+.horizontal-ad-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(45deg, rgba(207,0,0,0.05) 0%, transparent 100%);
+  pointer-events: none;
+}
+
+.horizontal-ad-link {
+  text-decoration: none;
+  display: block;
+}
+
+.horizontal-ad-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+}
+
+.ad-text-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.ad-tagline {
+  color: var(--color-red);
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 1px;
+  margin-bottom: 4px;
+}
+
+.horizontal-ad-content h3 {
+  color: #fff;
+  font-size: 1.2rem;
+  font-weight: 800;
+  margin-bottom: 4px;
+}
+
+.horizontal-ad-content p {
+  color: #aaa;
+  font-size: 0.85rem;
+}
+
+.horizontal-ad-content .ad-cta-button {
+  background-color: transparent;
+  color: #fff;
+  font-size: 0.85rem;
+  font-weight: 700;
+  padding: 10px 24px;
+  border-radius: 4px;
+  border: 2px solid var(--color-red);
+  white-space: nowrap;
+  transition: all 0.3s ease;
+}
+
+.horizontal-ad-card:hover .ad-cta-button {
+  background-color: var(--color-red);
+  box-shadow: 0 0 15px rgba(207,0,0,0.4);
+}
+
+@media (max-width: 992px) {
+  .horizontal-ad-content {
+    flex-direction: column;
+    text-align: center;
+  }
+  .horizontal-ad-content .ad-cta-button {
+    width: 100%;
+  }
+}
+
+/* 3. Publicidade da Coluna Central (Below Programação Semanal) */
+.portal-center-ad-banner {
+  background: linear-gradient(90deg, #1a1a1a 0%, #111 50%, #1a1a1a 100%);
+  border: 1px solid #333;
+  border-radius: 10px;
+  padding: 60px 34px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: var(--shadow-dark);
+  margin-top: 24px;
+  width: 100%;
+  height: 100%;
+}
+
+.portal-center-ad-banner::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(45deg, rgba(207,0,0,0.05) 0%, transparent 100%);
+  pointer-events: none;
+}
+
+.center-ad-link {
+  text-decoration: none;
+  display: block;
+}
+
+.center-ad-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+}
+
+.center-ad-content h3 {
+  color: #fff;
+  font-size: 1.15rem;
+  font-weight: 800;
+  margin-bottom: 4px;
+  letter-spacing: 0.5px;
+}
+
+.center-ad-content p {
+  color: #aaa;
+  font-size: 0.8rem;
+}
+
+.center-ad-content .ad-tagline {
+  color: var(--color-red);
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 1px;
+  margin-bottom: 4px;
+  display: block;
+}
+
+.center-ad-content .ad-cta-button {
+  background-color: transparent;
+  color: #fff;
+  font-size: 0.85rem;
+  font-weight: 700;
+  padding: 10px 24px;
+  border-radius: 4px;
+  border: 2px solid var(--color-red);
+  white-space: nowrap;
+  transition: all 0.3s ease;
+}
+
+.portal-center-ad-banner:hover .ad-cta-button {
+  background-color: var(--color-red);
+  box-shadow: 0 0 12px rgba(207,0,0,0.4);
+}
+
+@media (max-width: 768px) {
+  .center-ad-content {
+    flex-direction: column;
+    text-align: center;
+    gap: 12px;
+  }
+  .center-ad-content .ad-cta-button {
+    width: 100%;
+  }
+}
+
+/* 4. Publicidade Lateral na Esquerda (Estilo Widget) */
+.ad-link-widget {
+  text-decoration: none;
+  display: block;
+}
+
+.ad-widget-content {
+  background: linear-gradient(135deg, #111 0%, #222 100%);
+  border-radius: 8px;
+  padding: 30px 20px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  transition: all 0.3s ease;
+  min-height: 930px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+
+.ad-widget-content::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(207,0,0,0.15) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.ad-widget-content h4 {
+  color: #fff;
+  font-size: 1.1rem;
+  font-weight: 800;
+  margin-bottom: 8px;
+  letter-spacing: 1px;
+}
+
+.ad-widget-content p {
+  color: #bbb;
+  font-size: 0.8rem;
+  line-height: 1.5;
+  margin-bottom: 16px;
+}
+
+.ad-widget-content .btn-ad-anuncie {
+  background-color: var(--color-red);
+  color: #fff;
+  font-size: 0.8rem;
+  font-weight: 700;
+  padding: 8px 20px;
+  border-radius: 4px;
+  display: inline-block;
+  transition: all 0.3s ease;
+}
+
+.ad-widget-content:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+}
+
+.ad-widget-content:hover .btn-ad-anuncie {
+  background-color: #e60000;
+  box-shadow: 0 0 12px rgba(207,0,0,0.5);
+}
+
+
 

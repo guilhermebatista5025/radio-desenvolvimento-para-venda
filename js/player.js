@@ -24,6 +24,7 @@ let stickyVolumeSlider;
 let txtStickyMusica;
 let txtStickyArtista;
 let stickyVinylDisc;
+let btnStickyClose;
 
 // Array de músicas simuladas para simular metadados dinâmicos (RDS)
 const MOCK_PLAYLIST = [
@@ -100,6 +101,8 @@ function initPlayer() {
     stickyVolumeSlider.addEventListener("input", handleStickyVolumeChange);
     stickyVolumeSlider.value = audioPlayer.volume;
   }
+  btnStickyClose = document.getElementById("btn-sticky-close");
+  if (btnStickyClose) btnStickyClose.addEventListener("click", closeStickyPlayer);
 
   // Listener para erros de áudio (reconectar stream de forma robusta)
   audioPlayer.addEventListener("error", (e) => {
@@ -172,7 +175,10 @@ function setPlayingState(isPlaying) {
     if (badgeNoAr) badgeNoAr.classList.add("active");
     if (indicatorAoVivo) indicatorAoVivo.classList.add("active");
     if (playerVinyl) playerVinyl.classList.add("playing");
-    if (stickyPlayerBar) stickyPlayerBar.classList.add("playing");
+    if (stickyPlayerBar) {
+      stickyPlayerBar.classList.add("playing");
+      stickyPlayerBar.classList.add("visible");
+    }
   } else {
     // Mostrar ícone de play, esconder de pause
     playIcons.forEach(icon => icon.style.display = "block");
@@ -426,4 +432,17 @@ function startMetadataSimulation() {
   if (metadataInterval) clearInterval(metadataInterval);
   // Monitora e atualiza a música a cada 15 segundos para manter o player dinâmico
   metadataInterval = setInterval(updateMetadata, 15000);
+}
+
+// Fechar/ocultar o player do rodapé sticky
+function closeStickyPlayer() {
+  // 1. Pausar a transmissão se estiver ativa
+  if (audioPlayer && !audioPlayer.paused) {
+    audioPlayer.pause();
+    setPlayingState(false);
+  }
+  // 2. Ocultar a barra do rodapé
+  if (stickyPlayerBar) {
+    stickyPlayerBar.classList.remove("visible");
+  }
 }

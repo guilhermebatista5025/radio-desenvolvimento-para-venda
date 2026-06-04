@@ -8,6 +8,9 @@ document.addEventListener("DOMContentLoaded", () => {
   initScrollSuave();
   initAnimacoesScroll();
   initHeroSlider();
+  initGuestbook();
+  initClimaWidget();
+  initLiveStream();
 });
 
 // 1. Inicializações Gerais
@@ -17,24 +20,20 @@ function initGeral() {
   if (spanAno) {
     spanAno.textContent = new Date().getFullYear();
   }
+}
 
-  // Formulário de Contato - Envio Fictício
-  const formContato = document.getElementById("form-contato");
-  if (formContato) {
-    formContato.addEventListener("submit", (e) => {
-      e.preventDefault();
-      const nome = document.getElementById("form-nome").value;
-      const email = document.getElementById("form-email").value;
-      const mensagem = document.getElementById("form-mensagem").value;
+// 1b. Live Stream — Atualiza o iframe da live com o link publicado pelo Admin
+function initLiveStream() {
+  const DEFAULT_LIVE = "https://www.youtube-nocookie.com/embed/9r-SdTBrDag?autoplay=0&mute=1&rel=0&modestbranding=1";
+  const iframe = document.getElementById("live-video-iframe");
+  if (!iframe) return;
 
-      if (nome && email && mensagem) {
-        alert(`Obrigado pelo seu contato, ${nome}! Sua mensagem foi enviada com sucesso para a equipe da Rádio Pulso FM.`);
-        formContato.reset();
-      } else {
-        alert("Por favor, preencha todos os campos do formulário.");
-      }
-    });
+  const savedUrl = localStorage.getItem("PULSO_LIVE_URL");
+  if (savedUrl && savedUrl.trim()) {
+    // O admin publicou um link: usar esse link no iframe
+    iframe.src = savedUrl.trim();
   }
+  // Se não há link do admin, mantém o src padrão definido no HTML (9r-SdTBrDag)
 }
 
 // 2. Menu Hambúrguer Responsivo
@@ -453,36 +452,158 @@ function renderAoVivoDestaque(schedules, hosts) {
     nome: programaAtivo.locutor
   };
 
-  const nextIdx = (idxAtivo + 1) % schedules.length;
-  const proximoPrograma = schedules[nextIdx] || schedules[0];
-  let proximoHorario = proximoPrograma ? proximoPrograma.horario.split("-")[0].trim() : "";
-
   container.innerHTML = `
     <!-- Locutor de Plantão -->
-    <div class="aovivo-card-principal reveal active">
-      <div class="aovivo-locutor-photo">
-        <img src="${locutorAtivo.foto}" alt="${programaAtivo.locutor}" loading="lazy">
+    <div class="aovivo-card-principal reveal active" style="width: 100%;">
+      <!-- Coluna 1: Foto do Locutor com Badge -->
+      <div class="aovivo-locutor-photo-wrapper">
+        <div class="aovivo-locutor-photo">
+          <img src="${locutorAtivo.foto}" alt="${programaAtivo.locutor}" loading="lazy">
+        </div>
+        <span class="aovivo-photo-badge">ONLINE</span>
       </div>
-      <div class="aovivo-details">
-        <span class="aovivo-status-badge">No Comando</span>
+      
+      <!-- Coluna 2: Detalhes do Programa (Centro) -->
+      <div class="aovivo-details-middle">
+        <div class="aovivo-status-row">
+          <span class="aovivo-status-badge">No Comando</span>
+        </div>
         <h3 class="aovivo-show-name">${programaAtivo.titulo}</h3>
-        <p class="aovivo-locutor-name">${programaAtivo.locutor}</p>
-        <p class="aovivo-time" aria-label="Horário: das ${programaAtivo.horario}">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <div class="aovivo-locutor-row">
+          <svg class="locutor-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/>
+            <path d="M19 10v2a7 7 0 0 1-14 0v-2M12 19v4M8 23h8"/>
+          </svg>
+          <span class="aovivo-locutor-name">${programaAtivo.locutor}</span>
+        </div>
+      </div>
+
+      <!-- Coluna 3: Horário, Waveform e Pedido Musical (Direita) -->
+      <div class="aovivo-details-right">
+        <div class="aovivo-time-box" aria-label="Horário: das ${programaAtivo.horario}">
+          <svg class="time-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <circle cx="12" cy="12" r="10"></circle>
             <polyline points="12 6 12 12 16 14"></polyline>
           </svg>
-          ${programaAtivo.horario}
-        </p>
+          <span>${programaAtivo.horario}</span>
+        </div>
+        
+        <div class="aovivo-waveform-container">
+          <span class="waveform-label">ÁUDIO HD</span>
+          <div class="aovivo-waveform">
+            <span class="wave-bar"></span>
+            <span class="wave-bar"></span>
+            <span class="wave-bar"></span>
+            <span class="wave-bar"></span>
+            <span class="wave-bar"></span>
+            <span class="wave-bar"></span>
+          </div>
+        </div>
+        
+        <a href="https://wa.me/5527999879870?text=Ol%C3%A1!%20Gostaria%20de%20pedir%20uma%20m%C3%BAsica%20na%20programacao%20da%20R%C3%A1dio%20Pulso%20FM." class="btn-aovivo-request" target="_blank" rel="noopener">
+          <svg class="wpp-icon" width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12.031 2c-5.514 0-9.99 4.478-9.99 9.99 0 2.08.637 4.022 1.737 5.642L2 22l4.533-1.305c1.614.93 3.473 1.464 5.498 1.464 5.514 0 9.99-4.478 9.99-9.99S17.545 2 12.031 2zm0 16.637c-1.895 0-3.66-.566-5.14-1.536l-.37-.22-2.58.74.76-2.505-.245-.39c-1.047-1.654-1.6-3.57-1.6-5.56 0-5.233 4.257-9.49 9.49-9.49 5.233 0 9.49 4.257 9.49 9.49-0.005 5.237-4.262 9.494-9.495 9.494zm5.22-7.14c-.287-.145-1.702-.84-1.965-.935-.263-.095-.455-.145-.647.145-.192.29-.74.935-.907 1.13-.167.19-.335.215-.62.07-2.617-1.306-3.483-2.92-3.83-3.525-.28-.485.347-.45.993-1.745.105-.215.053-.405-.025-.555-.078-.15-.647-1.56-.887-2.133-.233-.562-.47-.485-.647-.495-.167-.01-.36-.01-.55-.01s-.502.07-.765.36c-.263.29-1.006.983-1.006 2.395 0 1.41 1.03 2.775 1.17 2.97.14.195 2.025 3.093 4.908 4.34 2.883 1.246 2.883.83 3.4.783.516-.047 1.702-.695 1.942-1.37.24-.674.24-1.25.167-1.37-.072-.12-.263-.215-.55-.36z"/>
+          </svg>
+          Pedir Música
+        </a>
       </div>
-    </div>
-
-    <!-- Próximo Programa -->
-    <div class="proximo-card reveal active" style="transition-delay: 0.15s;">
-      <span class="proximo-title">Próxima Atração</span>
-      <h3 class="proximo-show-name">${proximoPrograma.titulo}</h3>
-      <p class="proximo-locutor">por ${proximoPrograma.locutor}</p>
-      <span class="proximo-time">A partir das ${proximoHorario}</span>
     </div>
   `;
 }
+
+// 8. Mural de Recados / Pedido Musical (Guestbook) Interativo
+function initGuestbook() {
+  const DEFAULT_GUESTBOOK = [
+    { nome: "Carlos Souza (Itaparica, Vila Velha)", hora: "12:45", msg: "Toca Coldplay - Yellow! Um abraço para toda a equipe da Pulso FM!" },
+    { nome: "Mariana Costa (Centro, Vitória)", hora: "12:30", msg: "Melhor programação do estado! Sintonizada aqui no trabalho." },
+    { nome: "Felipe Silva (Glória, Vila Velha)", hora: "11:15", msg: "Quero mandar um alô para minha mãe no Ibes e pedir a nova do Jorge e Mateus!" },
+    { nome: "Beatriz Santos (Laranjeiras, Serra)", hora: "10:50", msg: "O som tá sensacional! Ligada na Pulso 98.7 todos os dias." }
+  ];
+
+  let localGuestbook = JSON.parse(localStorage.getItem("PULSO_GUESTBOOK"));
+  if (!localGuestbook) {
+    localGuestbook = DEFAULT_GUESTBOOK;
+    localStorage.setItem("PULSO_GUESTBOOK", JSON.stringify(DEFAULT_GUESTBOOK));
+  }
+
+  renderGuestbook(localGuestbook);
+
+  // Integrar com o formulário de contato / pedido musical
+  const formContato = document.getElementById("form-contato");
+  if (formContato) {
+    formContato.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const nome = document.getElementById("form-nome").value;
+      const mensagem = document.getElementById("form-mensagem").value;
+
+      if (nome && mensagem) {
+        const agora = new Date();
+        const horaStr = `${String(agora.getHours()).padStart(2, '0')}:${String(agora.getMinutes()).padStart(2, '0')}`;
+        
+        const novoRecado = {
+          nome: nome + " (Ouvinte)",
+          hora: horaStr,
+          msg: mensagem
+        };
+
+        let currentGuestbook = JSON.parse(localStorage.getItem("PULSO_GUESTBOOK")) || [];
+        currentGuestbook.unshift(novoRecado);
+        
+        if (currentGuestbook.length > 15) {
+          currentGuestbook = currentGuestbook.slice(0, 15);
+        }
+        
+        localStorage.setItem("PULSO_GUESTBOOK", JSON.stringify(currentGuestbook));
+        
+        renderGuestbook(currentGuestbook);
+
+        alert(`Obrigado pelo seu recado, ${nome}! Ele foi publicado com sucesso no mural.`);
+        formContato.reset();
+      } else {
+        alert("Por favor, preencha todos os campos do formulário.");
+      }
+    });
+  }
+}
+
+function renderGuestbook(lista) {
+  const container = document.getElementById("guestbook-messages-list");
+  if (!container) return;
+
+  container.innerHTML = "";
+  lista.forEach(recado => {
+    const item = document.createElement("div");
+    item.className = "guestbook-item";
+    item.innerHTML = `
+      <div class="guestbook-meta">
+        <span class="guestbook-author">${recado.nome}</span>
+        <span class="guestbook-time">${recado.hora}</span>
+      </div>
+      <p class="guestbook-text">${recado.msg}</p>
+    `;
+    container.appendChild(item);
+  });
+}
+
+// 9. Widget de Clima do Espírito Santo
+function initClimaWidget() {
+  const climaContainer = document.getElementById("clima-es-widget");
+  if (!climaContainer) return;
+  
+  const temperaturas = [
+    { cidade: "Vila Velha", temp: "26°C", cond: "Ensolarado" },
+    { cidade: "Vitória", temp: "26°C", cond: "Ensolarado" },
+    { cidade: "Serra", temp: "27°C", cond: "Parcialmente Nublado" },
+    { cidade: "Cariacica", temp: "28°C", cond: "Ensolarado" },
+    { cidade: "Guarapari", temp: "25°C", cond: "Ensolarado" }
+  ];
+  
+  climaContainer.innerHTML = temperaturas.map(t => `
+    <div class="clima-cidade-row">
+      <span class="clima-cidade-nome">${t.cidade}</span>
+      <span class="clima-cidade-temp">${t.temp}</span>
+      <span class="clima-cidade-cond">${t.cond}</span>
+    </div>
+  `).join("");
+}
+
