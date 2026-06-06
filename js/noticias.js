@@ -110,6 +110,12 @@ const NOTICIAS_MOCK = [
   }
 ];
 
+// Inicialização do LocalStorage para notícias (PULSO_NEWS)
+let localNewsDb = JSON.parse(localStorage.getItem("PULSO_NEWS"));
+if (!localNewsDb || localNewsDb.length === 0) {
+  localStorage.setItem("PULSO_NEWS", JSON.stringify(NOTICIAS_MOCK));
+  localStorage.setItem("PULSO_NEWS_SEEDED", "true");
+}
 // Configurações de paginação para noticias.html
 const ITENS_POR_PAGINA = 6;
 let paginaAtual = 1;
@@ -188,10 +194,33 @@ function renderizarSkeletons(container, quantidade = 6) {
   }
 }
 
-// Busca notícias dinamicamente a partir da API oficial do IBGE
+// Busca notícias dinamicamente a partir da API oficial do IBGE e mescla com as locais gerenciadas pelo Admin
 async function carregarNoticiasAPI() {
   const API_URL = "https://servicodados.ibge.gov.br/api/v3/noticias/?qtd=30";
   
+  // 1. Carregar do localStorage (banco de dados local gerenciado pelo admin)
+  const localNews = JSON.parse(localStorage.getItem("PULSO_NEWS")) || [];
+  
+  // Formatar as notícias locais para exibição no feed / modal
+  const localNewsFormatadas = localNews.map(item => {
+    let textoModal = item.textoCompleto || "";
+    if (!textoModal.includes("<p>")) {
+      textoModal = `<p class="resumo-completo">${item.resumo || ""}</p><div class="corpo-noticia-completo">${item.textoCompleto || ""}</div>`;
+    }
+    return {
+      id: item.id, // ID numérico vindo do admin
+      titulo: item.titulo,
+      resumo: item.resumo,
+      textoCompleto: textoModal,
+      categoria: item.categoria || "Local",
+      imagem: item.imagem || "https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?auto=format&fit=crop&q=80&w=600",
+      data: item.data || new Date().toLocaleDateString('pt-BR', { day: '2-digit', month: 'long', year: 'numeric' })
+    };
+  });
+
+  // Inicializar NOTICIAS_ATUAIS com as notícias locais gerenciáveis do Admin
+  NOTICIAS_ATUAIS = [...localNewsFormatadas];
+
   // Timeout de 4 segundos usando Promise.race
   const timeoutPromise = new Promise((_, reject) =>
     setTimeout(() => reject(new Error("Timeout na conexão")), 4000)
@@ -210,7 +239,7 @@ async function carregarNoticiasAPI() {
     }
     
     // Mapear notícias da API para a nossa estrutura
-    NOTICIAS_ATUAIS = dados.items.map((item) => {
+    const apiNews = dados.items.map((item) => {
       // Tratar a imagem principal
       let imageUrl = "https://images.unsplash.com/photo-1506157786151-b8491531f063?auto=format&fit=crop&q=80&w=600"; // Fallback premium
       if (item.imagens) {
@@ -246,7 +275,7 @@ async function carregarNoticiasAPI() {
       `;
       
       return {
-        id: item.id,
+        id: `api-${item.id}`,
         titulo: item.titulo,
         resumo: item.introducao,
         textoCompleto: textoModal,
@@ -256,38 +285,12 @@ async function carregarNoticiasAPI() {
       };
     });
     
-    console.log(`Sucesso: ${NOTICIAS_ATUAIS.length} notícias reais carregadas da API do IBGE.`);
+    // Anexar as notícias da API após as locais no feed geral
+    NOTICIAS_ATUAIS = [...NOTICIAS_ATUAIS, ...apiNews];
+    console.log(`[Notícias API] Mescladas ${apiNews.length} notícias externas ao banco local.`);
     
   } catch (erro) {
-    console.warn("Falha ao buscar notícias online. Ativando fallback de alta confiabilidade:", erro);
-    // Ativa fallback com as notícias mockadas estruturadas
-    NOTICIAS_ATUAIS = [...NOTICIAS_MOCK];
-  }
-
-  // Mesclar notícias customizadas do Painel Administrativo (LocalStorage) no topo do feed
-  try {
-    const customNews = JSON.parse(localStorage.getItem("PULSO_NEWS")) || [];
-    if (customNews.length > 0) {
-      const mappedCustom = customNews.map(item => {
-        let textoModal = item.textoCompleto || "";
-        if (!textoModal.includes("<p>")) {
-          textoModal = `<p class="resumo-completo">${item.resumo || ""}</p><div class="corpo-noticia-completo">${item.textoCompleto || ""}</div>`;
-        }
-        return {
-          id: `custom-${item.id}`,
-          titulo: item.titulo,
-          resumo: item.resumo,
-          textoCompleto: textoModal,
-          categoria: item.categoria || "Local",
-          imagem: item.imagem || "https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?auto=format&fit=crop&q=80&w=600",
-          data: item.data || new Date().toLocaleDateString('pt-BR', { day: '2-digit', month: 'long', year: 'numeric' })
-        };
-      });
-      NOTICIAS_ATUAIS = [...mappedCustom, ...NOTICIAS_ATUAIS];
-      console.log(`[Notícias Admin] Mescladas ${mappedCustom.length} notícias criadas localmente.`);
-    }
-  } catch (e) {
-    console.error("Erro ao mesclar notícias do admin local:", e);
+    console.warn("Falha ao buscar notícias online da API IBGE. Mantendo apenas base local unificada:", erro);
   }
 }
 

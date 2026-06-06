@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", () => {
   initHeroSlider();
   initGuestbook();
   initClimaWidget();
-  initLiveStream();
+  initPublicidade();
 });
 
 // 1. Inicializações Gerais
@@ -22,18 +22,65 @@ function initGeral() {
   }
 }
 
-// 1b. Live Stream — Atualiza o iframe da live com o link publicado pelo Admin
-function initLiveStream() {
-  const DEFAULT_LIVE = "https://www.youtube-nocookie.com/embed/9r-SdTBrDag?autoplay=0&mute=1&rel=0&modestbranding=1";
-  const iframe = document.getElementById("live-video-iframe");
-  if (!iframe) return;
+// 1c. Publicidade — Atualiza os banners com os dados salvos no localStorage
+function initPublicidade() {
+  // Banner Lateral (Sidebar Left)
+  const adSidebarLink = document.getElementById("portal-ad-sidebar-link");
+  const adSidebarTitle = document.getElementById("portal-ad-sidebar-title");
+  const adSidebarDesc = document.getElementById("portal-ad-sidebar-desc");
+  const adSidebarBtn = document.getElementById("portal-ad-sidebar-btn");
+  const adSidebarBg = document.getElementById("portal-ad-sidebar-bg");
 
-  const savedUrl = localStorage.getItem("PULSO_LIVE_URL");
-  if (savedUrl && savedUrl.trim()) {
-    // O admin publicou um link: usar esse link no iframe
-    iframe.src = savedUrl.trim();
+  const savedSidebar = localStorage.getItem("PULSO_AD_SIDEBAR");
+  if (savedSidebar) {
+    try {
+      const data = JSON.parse(savedSidebar);
+      if (adSidebarTitle && data.titulo) adSidebarTitle.textContent = data.titulo;
+      if (adSidebarDesc && data.descricao) adSidebarDesc.textContent = data.descricao;
+      if (adSidebarBtn && data.botao) adSidebarBtn.textContent = data.botao;
+      if (adSidebarLink && data.link) adSidebarLink.href = data.link;
+      
+      if (adSidebarBg) {
+        if (data.imagem && data.imagem.trim() !== "") {
+          adSidebarBg.style.background = `linear-gradient(rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0.65)), url(${data.imagem}) no-repeat center/cover`;
+        } else {
+          adSidebarBg.style.background = "";
+        }
+      }
+    } catch (e) {
+      console.error("Erro ao carregar dados do banner lateral:", e);
+    }
   }
-  // Se não há link do admin, mantém o src padrão definido no HTML (9r-SdTBrDag)
+
+  // Banner Central Horizontal (Bottom Center)
+  const adBottomLink = document.getElementById("portal-ad-bottom-link");
+  const adBottomTagline = document.getElementById("portal-ad-bottom-tagline");
+  const adBottomTitle = document.getElementById("portal-ad-bottom-title");
+  const adBottomDesc = document.getElementById("portal-ad-bottom-desc");
+  const adBottomBtn = document.getElementById("portal-ad-bottom-btn");
+  const adBottomBg = document.getElementById("portal-ad-bottom-bg");
+
+  const savedBottom = localStorage.getItem("PULSO_AD_BOTTOM");
+  if (savedBottom) {
+    try {
+      const data = JSON.parse(savedBottom);
+      if (adBottomTagline && data.tagline) adBottomTagline.textContent = data.tagline;
+      if (adBottomTitle && data.titulo) adBottomTitle.textContent = data.titulo;
+      if (adBottomDesc && data.descricao) adBottomDesc.textContent = data.descricao;
+      if (adBottomBtn && data.botao) adBottomBtn.textContent = data.botao;
+      if (adBottomLink && data.link) adBottomLink.href = data.link;
+      
+      if (adBottomBg) {
+        if (data.imagem && data.imagem.trim() !== "") {
+          adBottomBg.style.background = `linear-gradient(rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0.65)), url(${data.imagem}) no-repeat center/cover`;
+        } else {
+          adBottomBg.style.background = "";
+        }
+      }
+    } catch (e) {
+      console.error("Erro ao carregar dados do banner inferior:", e);
+    }
+  }
 }
 
 // 2. Menu Hambúrguer Responsivo
@@ -376,9 +423,11 @@ function renderPatrocinadores(lista) {
 
   container.innerHTML = "";
   
-  lista.sort((a, b) => a.ordem - b.ordem);
+  // Filtrar patrocinadores desativados
+  const ativos = lista.filter(p => !p.status || p.status === "ativo");
+  ativos.sort((a, b) => a.ordem - b.ordem);
 
-  lista.forEach((pat, index) => {
+  ativos.forEach((pat, index) => {
     const delay = index * 0.1;
     const div = document.createElement("div");
     div.className = "patrocinador-card reveal";
@@ -606,4 +655,121 @@ function initClimaWidget() {
     </div>
   `).join("");
 }
+
+// ==========================================================================
+// CONTROLE DE VÍDEO DO ESTÚDIO (AO VIVO / PLAYLIST GRAVADA)
+// ==========================================================================
+document.addEventListener("DOMContentLoaded", () => {
+  const btnSourcePlaylist = document.getElementById("btn-source-playlist");
+  const btnSourceLive = document.getElementById("btn-source-live");
+  const selectReportVideo = document.getElementById("select-report-video");
+  const playlistContainer = document.getElementById("live-playlist-selector");
+  const statusBadge = document.getElementById("live-status-badge");
+  const liveVideoIframe = document.getElementById("live-video-iframe");
+  const sourceSelector = document.querySelector(".player-source-selector");
+
+  if (!btnSourcePlaylist || !btnSourceLive || !selectReportVideo || !liveVideoIframe) return;
+
+  // Função para retornar o link de live stream publicado pelo administrador
+  function obterLinkLive() {
+    const savedUrl = localStorage.getItem("PULSO_LIVE_URL");
+    if (savedUrl && savedUrl.trim() !== "") {
+      return savedUrl.trim();
+    }
+    return null;
+  }
+
+  // Inicializar o estado do Estúdio de acordo com a existência de um link de live ativo
+  function inicializarEstudio() {
+    const savedUrl = localStorage.getItem("PULSO_LIVE_URL");
+    const navLinkAoVivo = document.getElementById("nav-link-ao-vivo");
+
+    if (savedUrl && savedUrl.trim() !== "") {
+      // Se há live publicada pelo admin, exibe a opção de alternância e inicia no modo "Ao Vivo" automaticamente
+      if (sourceSelector) sourceSelector.style.display = "flex";
+      if (btnSourceLive) btnSourceLive.style.display = "";
+      if (navLinkAoVivo) navLinkAoVivo.style.display = "";
+      if (statusBadge) statusBadge.style.display = "";
+      ativarModoAoVivo(false); // Inicia mutado por boas práticas de autoplay do navegador
+    } else {
+      // Se não há live ativa no admin, oculta a opção "Transmitir Ao Vivo" e inicia no modo "Playlist Gravada"
+      if (sourceSelector) sourceSelector.style.display = "none";
+      if (btnSourceLive) btnSourceLive.style.display = "none";
+      if (navLinkAoVivo) navLinkAoVivo.style.display = "none";
+      if (statusBadge) statusBadge.style.display = "none";
+      ativarModoPlaylist();
+    }
+  }
+
+  // Ativa o modo Ao Vivo
+  function ativarModoAoVivo(autoplayMute = true) {
+    btnSourcePlaylist.classList.remove("active");
+    btnSourceLive.classList.add("active");
+    if (playlistContainer) playlistContainer.classList.add("disabled");
+
+    if (statusBadge) {
+      statusBadge.style.display = "";
+      statusBadge.classList.add("online");
+      statusBadge.querySelector(".status-text").textContent = "AO VIVO NO ESTÚDIO";
+    }
+
+    const liveUrl = obterLinkLive();
+    if (liveUrl) {
+      const joinChar = liveUrl.includes("?") ? "&" : "?";
+      liveVideoIframe.src = `${liveUrl}${joinChar}autoplay=1&mute=${autoplayMute ? 0 : 1}&rel=0`;
+    }
+  }
+
+  // Ativa o modo Playlist
+  function ativarModoPlaylist() {
+    btnSourceLive.classList.remove("active");
+    btnSourcePlaylist.classList.add("active");
+    if (playlistContainer) playlistContainer.classList.remove("disabled");
+
+    const savedUrl = localStorage.getItem("PULSO_LIVE_URL");
+    if (savedUrl && savedUrl.trim() !== "") {
+      if (statusBadge) {
+        statusBadge.style.display = "";
+        statusBadge.classList.remove("online");
+        statusBadge.querySelector(".status-text").textContent = "OFFLINE (Playlist Ativa)";
+      }
+    } else {
+      if (statusBadge) statusBadge.style.display = "none";
+    }
+
+    const selectedVideoId = selectReportVideo.value;
+    liveVideoIframe.src = `https://www.youtube-nocookie.com/embed/${selectedVideoId}?autoplay=0&mute=1&rel=0`;
+  }
+
+  // Configurar ações dos botões
+  btnSourcePlaylist.addEventListener("click", () => {
+    ativarModoPlaylist();
+  });
+
+  btnSourceLive.addEventListener("click", () => {
+    ativarModoAoVivo(true);
+  });
+
+  // Configurar mudança de vídeo na playlist
+  selectReportVideo.addEventListener("change", (e) => {
+    if (btnSourcePlaylist.classList.contains("active")) {
+      const selectedVideoId = e.target.value;
+      liveVideoIframe.src = `https://www.youtube-nocookie.com/embed/${selectedVideoId}?autoplay=1&mute=1&rel=0`;
+    }
+  });
+
+  // Executar inicialização
+  inicializarEstudio();
+
+  // Escutar alterações do localStorage em tempo real (ex: vindo da aba admin)
+  window.addEventListener("storage", (e) => {
+    if (e.key === "PULSO_LIVE_URL") {
+      inicializarEstudio();
+    }
+    // Sincronizar também alterações de publicidade em tempo real
+    if (e.key === "PULSO_AD_SIDEBAR" || e.key === "PULSO_AD_BOTTOM") {
+      initPublicidade();
+    }
+  });
+});
 

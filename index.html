@@ -6,7 +6,7 @@
   
   <!-- SEO Básico -->
   <title>Rádio Pulso FM 98.7 | O pulso da sua cidade - Vila Velha ES</title>
-  <meta name="description" content="Ouça a Rádio Pulso FM 98.7 ao vivo de Vila Velha – ES. A melhor programação de Pop, Sertanejo, notícias locais, promoções exclusivas e entretenimento em HD.">
+  <meta name="description" content="Ouça a Rádio Pulso FM 98.7 ao vivo de Vila Velha – ES. A melhor programação de Pop, Sertanejo, notícias locais, promoções exclusivas e entretenimento in HD.">
   <meta name="keywords" content="rádio pulso fm, pulso fm vila velha, rádio ao vivo es, ouvir rádio es, pop sertanejo es, rádio es">
   <meta name="author" content="Rádio Pulso FM">
 
@@ -55,7 +55,8 @@
       <a href="#" class="nav-link">Início</a>
       <a href="./pages/sobre.html" class="nav-link">Sobre a Rádio</a>
       <a href="#player" class="nav-link">Player</a>
-      <a href="#ao-vivo" class="nav-link">Ao Vivo</a>
+      <a href="#no-ar-agora" class="nav-link">No Ar</a>
+      <a href="#estudio-live" class="nav-link" id="nav-link-ao-vivo" style="display: none;">Ao Vivo</a>
       <a href="#noticias" class="nav-link">Notícias</a>
       <a href="#programacao" class="nav-link">Programação</a>
       <a href="./pages/comercial.html" class="nav-link nav-link-destaque">
@@ -125,13 +126,13 @@
               PUBLICIDADE
             </h2>
           </div>
-          <a href="./pages/comercial.html" class="ad-link-widget">
-            <div class="ad-widget-content">
+          <a href="./pages/comercial.html" class="ad-link-widget" id="portal-ad-sidebar-link">
+            <div class="ad-widget-content" id="portal-ad-sidebar-bg">
               <div class="ad-text-wrapper">
-                <h4>ANUNCIE AQUI</h4>
-                <p>Sua marca em destaque na rádio mais ouvida de Vila Velha e região. Conheça nossos planos comerciais.</p>
+                <h4 id="portal-ad-sidebar-title">ANUNCIE AQUI</h4>
+                <p id="portal-ad-sidebar-desc">Sua marca em destaque na rádio mais ouvida de Vila Velha e região. Conheça nossos planos comerciais.</p>
               </div>
-              <span class="btn-ad-anuncie">Ver Mídia Kit</span>
+              <span class="btn-ad-anuncie" id="portal-ad-sidebar-btn">Ver Mídia Kit</span>
             </div>
           </a>
         </div>
@@ -140,19 +141,47 @@
       <!-- Coluna Central: Vídeo Live, Player Retro e Programação -->
       <div class="portal-column-center">
         
-        <!-- Bloco 1: Transmissão de Vídeo ao Vivo (Studio Live) -->
-        <section class="live-video-section">
+        <!-- Bloco 1: Transmissão de Vídeo ao Vivo (Estúdio Pulso Play) -->
+        <section class="live-video-section" id="estudio-live">
           <div class="portal-section-header">
             <h2 class="portal-section-title">
               <svg class="title-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="15" rx="2" ry="2"/><path d="m17 2-5 5-5-5"/></svg>
-              TRANSMISSÃO AO VIVO (ESTÚDIO)
+              ESTÚDIO PULSO PLAY
             </h2>
+            <div class="live-status-container">
+              <span class="live-status-badge" id="live-status-badge">
+                <span class="status-bullet"></span>
+                <span class="status-text">OFFLINE (Playlist Ativa)</span>
+              </span>
+            </div>
           </div>
+
+          <!-- Barra de Controle do Reprodutor do Estúdio -->
+          <div class="live-player-control-bar">
+            <div class="player-source-selector" style="display: none;">
+              <button class="source-btn active" id="btn-source-playlist" data-source="playlist">
+                Playlist Gravada
+              </button>
+              <button class="source-btn" id="btn-source-live" data-source="live" style="display: none;">
+                Transmitir Ao Vivo
+              </button>
+            </div>
+            
+            <div class="live-playlist-selector" id="live-playlist-selector">
+              <select id="select-report-video" aria-label="Escolher reportagem gravada para assistir no estúdio">
+                <option value="LqVw59v3aLg">Entrevista: Prefeito Arnaldinho Borgo</option>
+                <option value="O4B-rV-i69c">Especial: Vila Velha 489 Anos</option>
+                <option value="F5_Z8iR-u0Q" selected>Turismo: Roteiro Vila Velha</option>
+                <option value="fMcqvveqIVI">Mobilidade: Trânsito no Morro do Moreno</option>
+              </select>
+            </div>
+          </div>
+
           <div class="live-video-container">
-            <!-- Vídeo da transmissão ao vivo da Rádio -->
+            <!-- Vídeo dinâmico da transmissão ou playlist -->
             <iframe id="live-video-iframe" 
-                    src="https://www.youtube-nocookie.com/embed/9r-SdTBrDag?autoplay=0&mute=1&rel=0&modestbranding=1" 
-                    title="Rádio Pulso FM Live Stream" 
+                    src="https://www.youtube-nocookie.com/embed/F5_Z8iR-u0Q?autoplay=0&mute=1&rel=0&modestbranding=1" 
+                    title="Rádio Pulso FM Estúdio" 
                     frameborder="0" 
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
                     allowfullscreen></iframe>
@@ -240,7 +269,7 @@
         </section>
 
         <!-- Bloco 3: Locutor No Ar Agora -->
-        <section class="ao-vivo-now-section" id="ao-vivo">
+        <section class="ao-vivo-now-section" id="no-ar-agora">
           <div class="portal-section-header">
             <h2 class="portal-section-title">
               <svg class="title-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2M12 19v4M8 23h8"/></svg>
@@ -266,16 +295,16 @@
         </section>
 
         <!-- Banner de Publicidade da Coluna Central (Simulado) -->
-        <div class="portal-center-ad-banner">
+        <div class="portal-center-ad-banner" id="portal-ad-bottom-bg">
           <div class="ad-badge">PUBLICIDADE</div>
-          <a href="./pages/comercial.html" class="center-ad-link">
+          <a href="./pages/comercial.html" class="center-ad-link" id="portal-ad-bottom-link">
             <div class="center-ad-content">
               <div class="ad-text-content">
-                <span class="ad-tagline">📢 SEU ANÚNCIO AQUI</span>
-                <h3>ANUNCIE NA EMISSORA MAIS OUVIDA</h3>
-                <p>Conecte sua empresa a mais de 2.6 milhões de capixabas. Spots e banners.</p>
+                <span class="ad-tagline" id="portal-ad-bottom-tagline">📢 SEU ANÚNCIO AQUI</span>
+                <h3 id="portal-ad-bottom-title">ANUNCIE NA EMISSORA MAIS OUVIDA</h3>
+                <p id="portal-ad-bottom-desc">Conecte sua empresa a mais de 2.6 milhões de capixabas. Spots e banners.</p>
               </div>
-              <span class="ad-cta-button">Fale com um Consultor</span>
+              <span class="ad-cta-button" id="portal-ad-bottom-btn">Fale com um Consultor</span>
             </div>
           </a>
         </div>
@@ -342,6 +371,133 @@
       </aside>
 
     </div>
+
+    <!-- SEÇÃO: REPORTAGENS E GRAVAÇÕES (PLAYLIST) -->
+    <section class="recorded-reports-section" id="reportagens">
+      <div class="portal-section-header">
+        <h2 class="portal-section-title">
+          <svg class="title-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"></path>
+            <polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"></polygon>
+          </svg>
+          REPORTAGENS E ENTREVISTAS
+        </h2>
+      </div>
+
+      <div class="reports-grid">
+        <!-- Card 1: Entrevista Prefeito -->
+        <a href="./pages/reportagem.html?id=prefeito-entrevista" target="_blank" rel="noopener" class="report-card" aria-label="Assistir entrevista com o Prefeito Arnaldinho Borgo">
+          <div class="report-card-image-wrapper">
+            <img src="./assets/images/reports/prefeito_entrevista.png" alt="Entrevista com o Prefeito Arnaldinho Borgo" class="report-card-img" loading="lazy">
+            <div class="report-card-play-overlay">
+              <div class="play-btn-circle">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                  <polygon points="6 3 20 12 6 21 6 3"></polygon>
+                </svg>
+              </div>
+            </div>
+            <span class="report-card-badge">Entrevista</span>
+            <span class="report-card-duration">15:20</span>
+          </div>
+          <div class="report-card-content">
+            <span class="report-card-date">6 de Junho de 2026</span>
+            <h3 class="report-card-title">Prefeito Arnaldinho Borgo detalha investimentos em Vila Velha</h3>
+            <p class="report-card-description">Entrevista exclusiva abordando as obras de saneamento básico, drenagem, turismo e o futuro econômico do município.</p>
+            <div class="report-card-footer">
+              <span class="report-card-watch-link">Assistir Gravação</span>
+              <svg class="arrow-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+                <polyline points="12 5 19 12 12 19"></polyline>
+              </svg>
+            </div>
+          </div>
+        </a>
+
+        <!-- Card 2: Especial Aniversário -->
+        <a href="./pages/reportagem.html?id=festa-aniversario" target="_blank" rel="noopener" class="report-card" aria-label="Assistir cobertura do Aniversário de Vila Velha">
+          <div class="report-card-image-wrapper">
+            <img src="./assets/images/reports/festa_vila_velha.png" alt="Celebrações do Aniversário de Vila Velha" class="report-card-img" loading="lazy">
+            <div class="report-card-play-overlay">
+              <div class="play-btn-circle">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                  <polygon points="6 3 20 12 6 21 6 3"></polygon>
+                </svg>
+              </div>
+            </div>
+            <span class="report-card-badge">Especial</span>
+            <span class="report-card-duration">08:45</span>
+          </div>
+          <div class="report-card-content">
+            <span class="report-card-date">23 de Maio de 2026</span>
+            <h3 class="report-card-title">Vila Velha 489 Anos: Celebração e Shows no Aniversário da Cidade</h3>
+            <p class="report-card-description">Acompanhe a cobertura dos eventos festivos, shows e a tradicional transferência simbólica da capital do Estado.</p>
+            <div class="report-card-footer">
+              <span class="report-card-watch-link">Assistir Gravação</span>
+              <svg class="arrow-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+                <polyline points="12 5 19 12 12 19"></polyline>
+              </svg>
+            </div>
+          </div>
+        </a>
+
+        <!-- Card 3: Roteiro Turístico -->
+        <a href="./pages/reportagem.html?id=roteiro-turismo" target="_blank" rel="noopener" class="report-card" aria-label="Assistir Roteiro Vila Velha">
+          <div class="report-card-image-wrapper">
+            <img src="./assets/images/reports/convento_da_penha.png" alt="Convento da Penha Vila Velha" class="report-card-img" loading="lazy">
+            <div class="report-card-play-overlay">
+              <div class="play-btn-circle">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                  <polygon points="6 3 20 12 6 21 6 3"></polygon>
+                </svg>
+              </div>
+            </div>
+            <span class="report-card-badge">Turismo</span>
+            <span class="report-card-duration">12:10</span>
+          </div>
+          <div class="report-card-content">
+            <span class="report-card-date">15 de Maio de 2026</span>
+            <h3 class="report-card-title">Roteiro Vila Velha: Do Convento da Penha ao Farol de Santa Luzia</h3>
+            <p class="report-card-description">Descubra os maiores cartões-postais da cidade mais antiga do Espírito Santo em um passeio repleto de história e belezas.</p>
+            <div class="report-card-footer">
+              <span class="report-card-watch-link">Assistir Gravação</span>
+              <svg class="arrow-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+                <polyline points="12 5 19 12 12 19"></polyline>
+              </svg>
+            </div>
+          </div>
+        </a>
+
+        <!-- Card 4: Mobilidade Urbana -->
+        <a href="./pages/reportagem.html?id=mobilidade-urbana" target="_blank" rel="noopener" class="report-card" aria-label="Assistir reportagem sobre novo binário">
+          <div class="report-card-image-wrapper">
+            <img src="./assets/images/reports/transito_vila_velha.png" alt="Novo Binário de Vila Velha" class="report-card-img" loading="lazy">
+            <div class="report-card-play-overlay">
+              <div class="play-btn-circle">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                  <polygon points="6 3 20 12 6 21 6 3"></polygon>
+                </svg>
+              </div>
+            </div>
+            <span class="report-card-badge">Cidade</span>
+            <span class="report-card-duration">06:30</span>
+          </div>
+          <div class="report-card-content">
+            <span class="report-card-date">10 de Maio de 2026</span>
+            <h3 class="report-card-title">Novo Binário em Vila Velha: Mudanças no Tráfego e Obras de Acesso</h3>
+            <p class="report-card-description">Veja os detalhes das novas intervenções de infraestrutura viária iniciadas na cidade para melhorar a circulação urbana.</p>
+            <div class="report-card-footer">
+              <span class="report-card-watch-link">Assistir Gravação</span>
+              <svg class="arrow-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+                <polyline points="12 5 19 12 12 19"></polyline>
+              </svg>
+            </div>
+          </div>
+        </a>
+      </div>
+    </section>
   </main>
 
   <!-- 10. FOOTER -->

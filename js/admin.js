@@ -7,19 +7,109 @@ const DEFAULT_NOTICIAS = [
     id: 1,
     titulo: "Show do Coldplay em Vila Velha agita mais de 50 mil pessoas na Praia da Costa",
     resumo: "A icônica banda britânica realizou uma apresentação histórica à beira-mar com luzes, efeitos especiais e sucessos mundiais.",
-    textoCompleto: "<p class=\"resumo-completo\">A Praia da Costa, em Vila Velha, foi palco de um dos maiores eventos musicais da história do Espírito Santo...</p>",
+    textoCompleto: "A Praia da Costa, em Vila Velha, foi palco de um dos maiores eventos musicais da história do Espírito Santo. A renomada banda Coldplay atraiu uma multidão estimada em mais de 50 mil pessoas para um show histórico na noite de ontem. Com um palco flutuante na areia e as tradicionais pulseiras de LED iluminando toda a orla, a apresentação contou com grandes sucessos da carreira do grupo, incluindo 'Yellow', 'Fix You' e 'Viva La Vida'. O vocalista Chris Martin arriscou palavras em português e elogiou o calor e a energia do público capixaba. A prefeitura montou um forte esquema de segurança e transporte público especial, garantindo que o evento transcorresse sem grandes incidentes.",
     categoria: "Entretenimento",
     imagem: "https://images.unsplash.com/photo-1506157786151-b8491531f063?auto=format&fit=crop&q=80&w=600",
-    data: "30 de Maio de 2026"
+    data: "04 de Junho de 2026"
   },
   {
     id: 2,
     titulo: "Novo parque linear na orla de Itaparica terá ciclovias e áreas de lazer modernas",
     resumo: "Projeto avaliado em R$ 15 milhões promete transformar a infraestrutura de lazer, integrando esportes e convivência comunitária.",
-    textoCompleto: "<p>Foi anunciado na manhã de hoje o início das obras do novo Parque Linear de Itaparica...</p>",
+    textoCompleto: "Foi anunciado na manhã de hoje o início das obras do novo Parque Linear de Itaparica. O projeto, orçado em 15 milhões de reais pela Prefeitura de Vila Velha, prevê a revitalização completa de 2 km da orla marítima. O novo espaço contará com ciclovias exclusivas bidirecionais, pista de cooper com piso emborrachado, três quadras poliesportivas modernas, playgrounds com brinquedos acessíveis, além de uma ampla praça de alimentação ao ar livre. Segundo o secretário de Obras, a previsão de entrega é de 10 meses e o objetivo principal é promover a saúde, o esporte e o turismo na região, transformando o espaço em uma referência de convivência e lazer no estado.",
     categoria: "Local",
     imagem: "https://images.unsplash.com/photo-1502082553048-f009c37129b9?auto=format&fit=crop&q=80&w=600",
-    data: "29 de Maio de 2026"
+    data: "04 de Junho de 2026"
+  },
+  {
+    id: 3,
+    titulo: "Seleção Brasileira de Beach Soccer treina na Praia de Itaparica visando Copa do Mundo",
+    resumo: "Atletas realizam preparação física e tática nas areias capixabas, recebendo o carinho dos torcedores de Vila Velha.",
+    textoCompleto: "A areia fina e as excelentes condições climáticas de Vila Velha atraíram a Seleção Brasileira de Beach Soccer. O elenco está concentrado na Praia de Itaparica para uma semana intensa de treinamentos físicos e táticos. Sob o comando da comissão técnica, os atletas se preparam para a disputa da Copa do Mundo de Futebol de Areia, que ocorrerá no próximo semestre. Treinos abertos ao público atraíram centenas de torcedores e crianças das escolinhas de futebol locais, que puderam ver de perto os astros da seleção. O capitão da equipe destacou que o acolhimento do povo capixaba serve como um combustível extra para buscar o título mundial.",
+    categoria: "Esporte",
+    imagem: "https://images.unsplash.com/photo-1519766304817-4f37bda74a27?auto=format&fit=crop&q=80&w=600",
+    data: "04 de Junho de 2026"
+  },
+  {
+    id: 4,
+    titulo: "Convento da Penha terá iluminação especial no feriado e programação de missas presenciais",
+    resumo: "O maior monumento histórico e religioso do ES estima receber milhares de fiéis e turistas durante o feriado prolongado.",
+    textoCompleto: "O Convento da Penha, localizado no alto de um penhasco de 154 metros em Vila Velha, divulgou seu cronograma especial para as festividades religiosas del feriado prolongado. Além da tradicional iluminação cênica noturna, que destacará as cores do Espírito Santo, o monumento contará com missas adicionais campais no campinho do Convento para evitar aglomerações na capela principal. A prefeitura e os organizadores reforçaram que vans de transporte gratuito estarão à disposição de idosos e pessoas com deficiência na subida da ladeira. O comércio no entorno histórico da Prainha também se preparou para receber a alta demanda de turistas capixabas e de estados vizinhos.",
+    categoria: "Local",
+    imagem: "https://images.unsplash.com/photo-1476480862126-209bfaa8edc8?auto=format&fit=crop&q=80&w=600",
+    data: "03 de Junho de 2026"
+  },
+  {
+    id: 5,
+    titulo: "Festival Gastronômico de Vila Velha reúne chefs renomados e culinária capixaba",
+    resumo: "O evento traz pratos autorais, releituras da famosa Torta Capixaba e shows de MPB na Praça do Farol de Santa Luzia.",
+    textoCompleto: "Vila Velha sedia a partir desta quinta-feira a 8ª edição do seu aguardado Festival Gastronômico. O evento, montado na histórica Praça do Farol de Santa Luzia, reúne 15 restaurantes locais que prepararam cardápios exclusivos a preços promocionais. O grande destaque são as releituras da tradicional Torta Capixaba e da Moqueca, além de cervejas artesanais produzidas na região metropolitana. Além dos pratos deliciosos, o público poderá acompanhar workshops culinários gratuitos com chefs de renome nacional e curtir apresentações diárias de artistas locais tocando MPB e Jazz. O festival segue até o final do fim de semana com entrada franca.",
+    categoria: "Local",
+    imagem: "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&q=80&w=600",
+    data: "03 de Junho de 2026"
+  },
+  {
+    id: 6,
+    titulo: "Rádio Pulso FM anuncia transmissão HD e novas promoções com prêmios exclusivos",
+    resumo: "Emissora investe em tecnologia digital de ponta para transmissão online e prepara sorteio de ingressos para grandes shows.",
+    textoCompleto: "A Rádio Pulso FM continua inovando e expandindo suas fronteiras digitais. Foi anunciado hoje o lançamento do novo sistema de transmissão HD Online, que garante som com fidelidade de estúdio e latência ultra-baixa, consumindo até 40% menos dados móveis no celular dos ouvintes. Para comemorar, a emissora está lançando a campanha 'O Pulso te Leva', que sorteará dezenas de convites VIPs para os principais festivais de música do país, além de prêmios em dinheiro e smartphones. Os ouvintes podem se cadastrar pelo formulário de contato do site, enviando uma mensagem criativa dizendo por que a Pulso FM é o pulso da cidade.",
+    categoria: "Entretenimento",
+    imagem: "https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?auto=format&fit=crop&q=80&w=600",
+    data: "03 de Junho de 2026"
+  },
+  {
+    id: 7,
+    titulo: "Corrida da Penha bate recorde histórico com mais de 6 mil atletas confirmados",
+    resumo: "Competição tradicional do Espírito Santo terá percurso cênico ligando Vitória a Vila Velha pela Terceira Ponte.",
+    textoCompleto: "A tradicional Corrida da Penha, maior circuito esportivo de rua do estado, superou todas as expectativas para a edição de 2026. A organização confirmou a inscrição de mais de 6 mil corredores profissionais e amadores de todas as regiões do Brasil. Com largada na capital capixaba e chegada na Prainha de Vila Velha, o percurso conta com a emocionante travessia da Terceira Ponte, oferecendo uma vista deslumbrante aos participantes. O evento movimentará a rede hoteleira e a economia local. Haverá interdições parciais de trânsito programadas no domingo pela manhã para assegurar a integridade dos corredores, com desvios devidamente sinalizados.",
+    categoria: "Esporte",
+    imagem: "https://images.unsplash.com/photo-1476480862126-209bfaa8edc8?auto=format&fit=crop&q=80&w=600",
+    data: "02 de Junho de 2026"
+  },
+  {
+    id: 8,
+    titulo: "Governo do ES lança programa de investimentos para modernização de rodovias estaduais",
+    resumo: "O plano de R$ 40 milhões visa melhorar o tráfego e a segurança nas principais vias capixabas ligando o interior ao litoral.",
+    textoCompleto: "O Governo do Estado do Espírito Santo assinou o decreto de autorização para o novo Plano Capixaba de Infraestrutura Rodoviária. Com um investimento inicial estimado em 40 milhões de reais, as obras englobam recapeamento asfáltico completo, sinalização horizontal e vertical moderna com tecnologia refletiva, ampliação de acostamentos e implantação de faixas adicionais em subidas íngremes. O governador destacou que a modernização das rodovias visa facilitar o escoamento da produção agrícola e industrial do interior capixaba e garantir mais segurança para os motoristas e turistas que trafegam rumo às praias da Grande Vitória e do litoral sul do estado.",
+    categoria: "Local",
+    imagem: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&q=80&w=600",
+    data: "02 de Junho de 2026"
+  },
+  {
+    id: 9,
+    titulo: "Vitória sedia congresso nacional de tecnologia e inovação no setor de porto e logística",
+    resumo: "Especialistas debatem automação de terminais portuários capixabas para aumentar produtividade e sustentabilidade.",
+    textoCompleto: "A capital do Espírito Santo sedia o maior congresso de tecnologia portuária do Sudeste. O evento reúne executivos de logística, engenheiros de automação e autoridades do setor para debater soluções inovadoras para os complexos portuários capixabas. O foco principal é a transição energética e o uso de inteligência artificial na triagem de cargas de contêineres e no agendamento de embarques, com potencial de reduzir as emissões de carbono e agilizar a atracação de grandes navios cargueiros. O porto de Capuaba em Vila Velha e os terminais de Tubarão em Vitória foram citados como modelos no avanço tecnológico portuário nacional.",
+    categoria: "Local",
+    imagem: "https://images.unsplash.com/photo-1578575437130-527eed3abbec?auto=format&fit=crop&q=80&w=600",
+    data: "01 de Junho de 2026"
+  },
+  {
+    id: 10,
+    titulo: "Rio Branco-ES anuncia contratação de novo técnico de olho na Copa Espírito Santo",
+    resumo: "Clube capixaba apresenta nova comissão técnica com meta ambiciosa de classificação para a Copa do Brasil do ano que vem.",
+    textoCompleto: "A diretoria do Rio Branco-ES apresentou oficialmente seu novo comandante de futebol para o restante da temporada 2026. Com vasta experiência em divisões de acesso do futebol brasileiro, o novo treinador chega com a missão de reestruturar a equipe e integrar promessas das categorias de base. Em entrevista coletiva no CT do clube, ele destacou o potencial da torcida capa-preta e afirmou que o objetivo imediato é a conquista do título da Copa Espírito Santo, garantindo uma vaga direta na prestigiada Copa do Brasil. A preparação física do elenco começa imediatamente nesta tarde.",
+    categoria: "Esporte",
+    imagem: "https://images.unsplash.com/photo-1508098682722-e99c43a406b2?auto=format&fit=crop&q=80&w=600",
+    data: "01 de Junho de 2026"
+  },
+  {
+    id: 11,
+    titulo: "Assembleia Legislativa aprova incentivos fiscais para geração de energia solar no ES",
+    resumo: "Nova lei isenta impostos de equipamentos e estimula o crescimento de usinas solares fotovoltaicas no estado.",
+    textoCompleto: "Em votação unânime na tarde de ontem, a Assembleia Legislativa do Espírito Santo aprovou o Projeto de Lei de Incentivo às Energias Renováveis. A medida garante isenções fiscais na aquisição de painéis solares, inversores e sistemas de armazenamento de energia para produtores rurais, pequenas empresas e residências em todo o território capixaba. Deputados autores do projeto argumentam que o estado possui alto potencial solar e que os novos incentivos criarão centenas de novos empregos no setor de instalação de energia limpa, além de reduzir as contas de energia elétrica e a pressão sobre os reservatórios hídricos locais.",
+    categoria: "Local",
+    imagem: "https://images.unsplash.com/photo-1509391366360-2e959784a276?auto=format&fit=crop&q=80&w=600",
+    data: "31 de Maio de 2026"
+  },
+  {
+    id: 12,
+    titulo: "Orquestra Sinfônica do Espírito Santo anuncia concerto gratuito em Vitória",
+    resumo: "Apresentação especial terá clássicos de Beethoven e Villa-Lobos na Catedral Metropolitana com entrada franca.",
+    textoCompleto: "A Orquestra Sinfônica do Estado do Espírito Santo (OSES) anunciou sua nova temporada de concertos comunitários. A primeira apresentação será realizada na Catedral Metropolitana de Vitória, na Cidade Alta, com um repertório selecionado que une grandes nomes da música clássica europeia, como Beethoven, a composições históricas de Villa-Lobos. Sob a batuta do maestro titular, o concerto terá entrada totalmente franca, com assentos por ordem de chegada. A ação faz parte da iniciativa da Secretaria Estadual de Cultura para democratizar o acesso à arte e à música instrumental nas cidades capixabas.",
+    categoria: "Entretenimento",
+    imagem: "https://images.unsplash.com/photo-1465847899084-d164df4dedc6?auto=format&fit=crop&q=80&w=600",
+    data: "31 de Maio de 2026"
   }
 ];
 
@@ -71,6 +161,21 @@ const DEFAULT_PATROCINADORES = [
   { id: 3, nome: "Auto Posto Pulso", logo: "", link: "https://wa.me/5527999879870", ordem: 3 }
 ];
 
+const DEFAULT_AD_SIDEBAR = {
+  titulo: "ANUNCIE AQUI",
+  descricao: "Sua marca em destaque na rádio mais ouvida de Vila Velha e região. Conheça nossos planos comerciais.",
+  botao: "Ver Mídia Kit",
+  link: "./pages/comercial.html"
+};
+
+const DEFAULT_AD_BOTTOM = {
+  tagline: "📢 SEU ANÚNCIO AQUI",
+  titulo: "ANUNCIE NA EMISSORA MAIS OUVIDA",
+  descricao: "Conecte sua empresa a mais de 2.6 milhões de capixabas. Spots e banners.",
+  botao: "Fale com um Consultor",
+  link: "./pages/comercial.html"
+};
+
 // 2. Inicialização dos Estados locais (LocalStorage)
 let noticias = JSON.parse(localStorage.getItem("PULSO_NEWS")) || [];
 let programacao = JSON.parse(localStorage.getItem("PULSO_SCHEDULE")) || [];
@@ -97,6 +202,12 @@ if (patrocinadores.length === 0 && !localStorage.getItem("PULSO_SPONSORS_SEEDED"
   patrocinadores = [...DEFAULT_PATROCINADORES];
   localStorage.setItem("PULSO_SPONSORS", JSON.stringify(patrocinadores));
   localStorage.setItem("PULSO_SPONSORS_SEEDED", "true");
+}
+if (!localStorage.getItem("PULSO_AD_SIDEBAR")) {
+  localStorage.setItem("PULSO_AD_SIDEBAR", JSON.stringify(DEFAULT_AD_SIDEBAR));
+}
+if (!localStorage.getItem("PULSO_AD_BOTTOM")) {
+  localStorage.setItem("PULSO_AD_BOTTOM", JSON.stringify(DEFAULT_AD_BOTTOM));
 }
 
 // 3. Inicialização Geral e Gate de Login
@@ -184,18 +295,157 @@ function configurarEventosGerais() {
   document.getElementById("form-programa").addEventListener("submit", salvarPrograma);
   document.getElementById("form-locutor").addEventListener("submit", salvarLocutor);
   document.getElementById("form-patrocinador").addEventListener("submit", salvarPatrocinador);
+  const formPublicidade = document.getElementById("form-publicidade");
+  if (formPublicidade) {
+    formPublicidade.addEventListener("submit", salvarPublicidade);
+  }
+
+  // Listeners de Upload de Imagem
+  document.getElementById("n-foto-file").addEventListener("change", (e) => inicializarUpload(e, "noticia", "n-upload-box", "n-upload-preview"));
+  document.getElementById("l-foto-file").addEventListener("change", (e) => inicializarUpload(e, "locutor", "l-upload-box", "l-upload-preview"));
+  document.getElementById("pat-logo-file").addEventListener("change", (e) => inicializarUpload(e, "patrocinador", "pat-upload-box", "pat-upload-preview"));
+  document.getElementById("ad-side-file").addEventListener("change", (e) => inicializarUpload(e, "adSidebar", "ad-side-upload-box", "ad-side-upload-preview"));
+  document.getElementById("ad-bottom-file").addEventListener("change", (e) => inicializarUpload(e, "adBottom", "ad-bottom-upload-box", "ad-bottom-upload-preview"));
+
+  // CNPJ mask
+  const cnpjInput = document.getElementById("pat-cnpj");
+  if (cnpjInput) {
+    cnpjInput.addEventListener("input", (e) => {
+      let v = e.target.value.replace(/\D/g, "");
+      v = v.substring(0, 14);
+      if (v.length > 12) v = v.replace(/(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/, "$1.$2.$3/$4-$5");
+      else if (v.length > 8) v = v.replace(/(\d{2})(\d{3})(\d{3})(\d+)/, "$1.$2.$3/$4");
+      else if (v.length > 5) v = v.replace(/(\d{2})(\d{3})(\d+)/, "$1.$2.$3");
+      else if (v.length > 2) v = v.replace(/(\d{2})(\d+)/, "$1.$2");
+      e.target.value = v;
+    });
+  }
+
+  // Preview upload listener
+  const previewFileInput = document.getElementById("preview-logo-file");
+  if (previewFileInput) {
+    previewFileInput.addEventListener("change", (e) => {
+      const file = e.target.files[0];
+      if (!file) return;
+      const box = document.getElementById("preview-upload-box");
+      const loading = box.querySelector(".upload-box-loading");
+      const content = box.querySelector(".upload-box-content");
+      if (loading) { loading.style.display = "flex"; }
+      if (content) { content.style.display = "none"; }
+      const reader = new FileReader();
+      reader.onload = (ev) => {
+        setTimeout(() => {
+          document.getElementById("preview-pat-url").value = ev.target.result;
+          if (loading) loading.style.display = "none";
+          if (content) content.style.display = "flex";
+          atualizarPreviewPatrocinador();
+        }, 500);
+      };
+      reader.readAsDataURL(file);
+    });
+  }
 }
 
-// 4. Lógicas Globais de Formulário
+// 4. Lógicas Globais de Formulário e Navegação Wizard
+const TOTAL_STEPS = { noticia: 3, programa: 2, locutor: 3, patrocinador: 3 };
+let activeSteps = { noticia: 1, programa: 1, locutor: 1, patrocinador: 1 };
+
+function mostrarEtapa(tipo, step) {
+  activeSteps[tipo] = step;
+  
+  // Atualizar panes
+  const panes = document.querySelectorAll(`#form-${tipo} .form-step-pane`);
+  panes.forEach(pane => {
+    const paneStep = parseInt(pane.getAttribute("data-step"), 10);
+    if (paneStep === step) {
+      pane.classList.add("active");
+    } else {
+      pane.classList.remove("active");
+    }
+  });
+
+  // Atualizar indicadores
+  const nodes = document.querySelectorAll(`#indicator-${tipo} .wizard-step-node`);
+  nodes.forEach(node => {
+    const nodeStep = parseInt(node.getAttribute("data-step"), 10);
+    if (nodeStep < step) {
+      node.classList.add("completed");
+      node.classList.remove("active");
+    } else if (nodeStep === step) {
+      node.classList.add("active");
+      node.classList.remove("completed");
+    } else {
+      node.classList.remove("active", "completed");
+    }
+  });
+
+  // Atualizar linhas conectoras
+  const lines = document.querySelectorAll(`#indicator-${tipo} .wizard-step-line`);
+  lines.forEach((line, idx) => {
+    if (step > idx + 1) {
+      line.classList.add("completed");
+    } else {
+      line.classList.remove("completed");
+    }
+  });
+
+  // Atualizar botões
+  const total = TOTAL_STEPS[tipo];
+  const btnPrev = document.getElementById(`btn-prev-${tipo}`);
+  const btnNext = document.getElementById(`btn-next-${tipo}`);
+  const btnSave = document.getElementById(`btn-save-${tipo}`);
+
+  if (btnPrev) btnPrev.style.display = (step === 1) ? "none" : "inline-block";
+  if (btnNext) btnNext.style.display = (step === total) ? "none" : "inline-block";
+  if (btnSave) btnSave.style.display = (step === total) ? "inline-block" : "none";
+}
+
+function avancarEtapa(tipo) {
+  const step = activeSteps[tipo];
+  const pane = document.querySelector(`#form-${tipo} .form-step-pane[data-step="${step}"]`);
+  if (pane) {
+    const fields = pane.querySelectorAll("input, select, textarea");
+    for (const field of fields) {
+      if (!field.checkValidity()) {
+        field.reportValidity();
+        return;
+      }
+    }
+  }
+  
+  const total = TOTAL_STEPS[tipo];
+  if (step < total) {
+    mostrarEtapa(tipo, step + 1);
+  }
+}
+
+function voltarEtapa(tipo) {
+  const step = activeSteps[tipo];
+  if (step > 1) {
+    mostrarEtapa(tipo, step - 1);
+  }
+}
+
+// Expor para o escopo global (para chamadas inline onclick do HTML)
+window.mostrarEtapa = mostrarEtapa;
+window.avancarEtapa = avancarEtapa;
+window.voltarEtapa = voltarEtapa;
+
+// Mapa para guardar os dados de upload por tipo de formulário
+const uploadedImages = { noticia: null, locutor: null, patrocinador: null, adSidebar: null, adBottom: null };
+
 function abrirFormulario(tipo) {
-  document.getElementById(`form-${tipo}-wrapper`).style.display = "block";
+  document.getElementById(`form-${tipo}-wrapper`).style.display = "flex";
   document.getElementById(`form-${tipo}`).reset();
   document.getElementById(`${tipo}-edit-id`).value = "";
   document.getElementById(`form-${tipo}-titulo`).textContent = `Cadastrar ${tipo.charAt(0).toUpperCase() + tipo.slice(1)}`;
+  resetarUpload(tipo);
+  mostrarEtapa(tipo, 1);
 }
 
 function fecharFormulario(tipo) {
   document.getElementById(`form-${tipo}-wrapper`).style.display = "none";
+  resetarUpload(tipo);
 }
 
 function fecharTodosFormularios() {
@@ -203,6 +453,111 @@ function fecharTodosFormularios() {
   fecharFormulario("programa");
   fecharFormulario("locutor");
   fecharFormulario("patrocinador");
+}
+
+// ==========================================
+// F. LÓGICA DE UPLOAD DE IMAGEM
+// ==========================================
+
+// Mapeamentos de IDs de elementos por tipo
+const UPLOAD_MAP = {
+  noticia:      { boxId: "n-upload-box",   previewId: "n-upload-preview",   fileId: "n-foto-file" },
+  locutor:      { boxId: "l-upload-box",   previewId: "l-upload-preview",   fileId: "l-foto-file" },
+  patrocinador: { boxId: "pat-upload-box", previewId: "pat-upload-preview", fileId: "pat-logo-file" },
+  adSidebar:    { boxId: "ad-side-upload-box", previewId: "ad-side-upload-preview", fileId: "ad-side-file" },
+  adBottom:     { boxId: "ad-bottom-upload-box", previewId: "ad-bottom-upload-preview", fileId: "ad-bottom-file" }
+};
+
+function inicializarUpload(e, tipo, boxId, previewImgId) {
+  const file = e.target.files[0];
+  if (!file) return;
+
+  const box = document.getElementById(boxId);
+  const loading = box.querySelector(".upload-box-loading");
+  const content = box.querySelector(".upload-box-content");
+  const preview = box.querySelector(".upload-box-preview");
+
+  // Mostrar spinner
+  content.style.display = "none";
+  preview.style.display = "none";
+  loading.style.display = "flex";
+
+  const reader = new FileReader();
+
+  reader.onload = (ev) => {
+    const dataUrl = ev.target.result;
+
+    // Simular pequeno delay para mostrar o loading (mínimo 600ms)
+    setTimeout(() => {
+      uploadedImages[tipo] = dataUrl;
+
+      // Mostrar preview
+      const img = document.getElementById(previewImgId);
+      img.src = dataUrl;
+      loading.style.display = "none";
+      preview.style.display = "flex";
+
+      // Limpar o campo de URL (o upload tem prioridade)
+      const urlFieldMap = { noticia: "n-imagem", locutor: "l-foto", patrocinador: "pat-logo", adSidebar: "ad-side-img", adBottom: "ad-bottom-img" };
+      const urlField = document.getElementById(urlFieldMap[tipo]);
+      if (urlField) urlField.value = "";
+    }, 700);
+  };
+
+  reader.onerror = () => {
+    loading.style.display = "none";
+    content.style.display = "flex";
+    mostrarToastAdmin("❌ Erro ao ler o arquivo. Tente novamente.", "error");
+  };
+
+  reader.readAsDataURL(file);
+}
+
+window.removerUpload = function(tipo) {
+  resetarUpload(tipo);
+  // Limpar o file input também
+  const fileId = UPLOAD_MAP[tipo]?.fileId;
+  if (fileId) {
+    const fileInput = document.getElementById(fileId);
+    if (fileInput) fileInput.value = "";
+  }
+};
+
+function resetarUpload(tipo) {
+  uploadedImages[tipo] = null;
+  const map = UPLOAD_MAP[tipo];
+  if (!map) return;
+
+  const box = document.getElementById(map.boxId);
+  if (!box) return;
+
+  const loading = box.querySelector(".upload-box-loading");
+  const content = box.querySelector(".upload-box-content");
+  const preview = box.querySelector(".upload-box-preview");
+
+  if (loading) loading.style.display = "none";
+  if (preview) preview.style.display = "none";
+  if (content) content.style.display = "flex";
+}
+
+function mostrarPreviewUploadExistente(tipo, dataUrl) {
+  const map = UPLOAD_MAP[tipo];
+  if (!map || !dataUrl || !dataUrl.startsWith("data:")) return;
+
+  uploadedImages[tipo] = dataUrl;
+
+  const box = document.getElementById(map.boxId);
+  if (!box) return;
+
+  const loading = box.querySelector(".upload-box-loading");
+  const content = box.querySelector(".upload-box-content");
+  const preview = box.querySelector(".upload-box-preview");
+  const img = document.getElementById(map.previewId);
+
+  if (img) img.src = dataUrl;
+  if (loading) loading.style.display = "none";
+  if (content) content.style.display = "none";
+  if (preview) preview.style.display = "flex";
 }
 
 function carregarListagemAtiva() {
@@ -213,6 +568,7 @@ function carregarListagemAtiva() {
   if (activeTabId === "tab-locutores") renderizarListaLocutores();
   if (activeTabId === "tab-patrocinadores") renderizarListaPatrocinadores();
   if (activeTabId === "tab-live") inicializarTabLive();
+  if (activeTabId === "tab-publicidade") inicializarTabPublicidade();
 }
 
 // ==========================================
@@ -248,10 +604,25 @@ function renderizarListaNoticias() {
 function salvarNoticia(e) {
   e.preventDefault();
   
+  const form = document.getElementById("form-noticia");
+  if (!form.checkValidity()) {
+    form.reportValidity();
+    const invalidField = form.querySelector(":invalid");
+    if (invalidField) {
+      const pane = invalidField.closest(".form-step-pane");
+      if (pane) {
+        const step = parseInt(pane.getAttribute("data-step"), 10);
+        mostrarEtapa("noticia", step);
+      }
+    }
+    return;
+  }
+  
   const idEdit = document.getElementById("noticia-edit-id").value;
   const tituloVal = document.getElementById("n-titulo").value.trim();
   const categoriaVal = document.getElementById("n-categoria").value;
-  const imagemVal = document.getElementById("n-imagem").value.trim() || "https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?auto=format&fit=crop&q=80&w=600";
+  // Prioridade: imagem enviada por upload > URL digitada > imagem padrão
+  const imagemVal = uploadedImages.noticia || document.getElementById("n-imagem").value.trim() || "https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?auto=format&fit=crop&q=80&w=600";
   const dataVal = document.getElementById("n-data").value.trim();
   const resumoVal = document.getElementById("n-resumo").value.trim();
   const textoVal = document.getElementById("n-texto").value.trim();
@@ -283,7 +654,13 @@ window.editarNoticia = function(id) {
   document.getElementById("noticia-edit-id").value = item.id;
   document.getElementById("n-titulo").value = item.titulo;
   document.getElementById("n-categoria").value = item.categoria;
-  document.getElementById("n-imagem").value = item.imagem === "https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?auto=format&fit=crop&q=80&w=600" ? "" : item.imagem;
+  // Se a imagem salva for Base64 (upload anterior), mostrar preview; caso contrário mostrar URL
+  if (item.imagem && item.imagem.startsWith("data:")) {
+    mostrarPreviewUploadExistente("noticia", item.imagem);
+    document.getElementById("n-imagem").value = "";
+  } else {
+    document.getElementById("n-imagem").value = item.imagem === "https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?auto=format&fit=crop&q=80&w=600" ? "" : item.imagem;
+  }
   document.getElementById("n-data").value = item.data;
   document.getElementById("n-resumo").value = item.resumo;
   document.getElementById("n-texto").value = item.textoCompleto;
@@ -330,6 +707,20 @@ function renderizarListaProgramacao() {
 
 function salvarPrograma(e) {
   e.preventDefault();
+  
+  const form = document.getElementById("form-programa");
+  if (!form.checkValidity()) {
+    form.reportValidity();
+    const invalidField = form.querySelector(":invalid");
+    if (invalidField) {
+      const pane = invalidField.closest(".form-step-pane");
+      if (pane) {
+        const step = parseInt(pane.getAttribute("data-step"), 10);
+        mostrarEtapa("programa", step);
+      }
+    }
+    return;
+  }
   
   const idEdit = document.getElementById("programa-edit-id").value;
   const tituloVal = document.getElementById("p-titulo").value.trim();
@@ -409,10 +800,25 @@ function renderizarListaLocutores() {
 function salvarLocutor(e) {
   e.preventDefault();
   
+  const form = document.getElementById("form-locutor");
+  if (!form.checkValidity()) {
+    form.reportValidity();
+    const invalidField = form.querySelector(":invalid");
+    if (invalidField) {
+      const pane = invalidField.closest(".form-step-pane");
+      if (pane) {
+        const step = parseInt(pane.getAttribute("data-step"), 10);
+        mostrarEtapa("locutor", step);
+      }
+    }
+    return;
+  }
+  
   const idEdit = document.getElementById("locutor-edit-id").value;
   const nomeVal = document.getElementById("l-nome").value.trim();
   const cargoVal = document.getElementById("l-cargo").value.trim();
-  const fotoVal = document.getElementById("l-foto").value.trim() || "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=400&h=400";
+  // Prioridade: imagem enviada por upload > URL digitada > imagem padrão
+  const fotoVal = uploadedImages.locutor || document.getElementById("l-foto").value.trim() || "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=400&h=400";
   const ordemVal = parseInt(document.getElementById("l-ordem").value, 10);
   const instagramVal = document.getElementById("l-instagram").value.trim() || "https://instagram.com";
   const whatsappVal = document.getElementById("l-whatsapp").value.trim() || "https://wa.me/5527999879870";
@@ -443,7 +849,13 @@ window.editarLocutor = function(id) {
   document.getElementById("locutor-edit-id").value = item.id;
   document.getElementById("l-nome").value = item.nome;
   document.getElementById("l-cargo").value = item.cargo;
-  document.getElementById("l-foto").value = (item.foto.includes("photo-1534528741775")) ? "" : item.foto;
+  // Se a foto salva for Base64 (upload anterior), mostrar preview; caso contrário mostrar URL
+  if (item.foto && item.foto.startsWith("data:")) {
+    mostrarPreviewUploadExistente("locutor", item.foto);
+    document.getElementById("l-foto").value = "";
+  } else {
+    document.getElementById("l-foto").value = (item.foto.includes("photo-1534528741775")) ? "" : item.foto;
+  }
   document.getElementById("l-ordem").value = item.ordem;
   document.getElementById("l-instagram").value = item.instagram === "https://instagram.com" ? "" : item.instagram;
   document.getElementById("l-whatsapp").value = item.whatsapp === "https://wa.me/5527999879870" ? "" : item.whatsapp;
@@ -466,7 +878,7 @@ function renderizarListaPatrocinadores() {
   corpo.innerHTML = "";
   
   if (patrocinadores.length === 0) {
-    corpo.innerHTML = `<tr><td colspan="5" class="tbl-empty-msg">Nenhum parceiro ou patrocinador cadastrado.</td></tr>`;
+    corpo.innerHTML = `<tr><td colspan="9" class="tbl-empty-msg">Nenhum parceiro ou patrocinador cadastrado.</td></tr>`;
     return;
   }
   
@@ -476,11 +888,22 @@ function renderizarListaPatrocinadores() {
     const tr = document.createElement("tr");
     const path = window.location.pathname.replace(/\\/g, '/');
     const isPage = path.includes('/pages/') || path.endsWith('/pages');
-    const logoImg = item.logo || (isPage ? "../assets/icons/icon-192x192.png" : "./assets/icons/icon-192x192.png"); // Fallback para ícone genérico se não tiver logo customizado
+    const logoImg = item.logo || (isPage ? "../assets/icons/icon-192x192.png" : "./assets/icons/icon-192x192.png");
+    const status = item.status || "ativo";
+    const renovacao = item.renovacao || "mensal";
+    const valor = item.valorPago ? `R$ ${parseFloat(item.valorPago).toFixed(2).replace(".", ",")}` : "—";
+    const diaPgto = item.diaPagamento ? `Dia ${item.diaPagamento}` : "—";
+    const statusDot = status === "ativo" ? "●" : "●";
+    
+    if (status === "inativo") tr.classList.add("tbl-row-inativo");
     
     tr.innerHTML = `
       <td><img src="${logoImg}" class="tbl-thumb" alt="Logo" style="background-color:#eee; padding:5px;"></td>
       <td><strong>${item.nome}</strong></td>
+      <td><span class="badge-status ${status}">${statusDot} ${status === "ativo" ? "Ativo" : "Desativado"}</span></td>
+      <td><span class="badge-renovacao">${renovacao}</span></td>
+      <td style="font-size: 0.82rem; color: #94a3b8;">${diaPgto}</td>
+      <td style="font-size: 0.82rem; color: #94a3b8;">${valor}</td>
       <td><a href="${item.link}" target="_blank" style="color:var(--color-gold); font-weight:500;">Link ↗</a></td>
       <td>${item.ordem}º</td>
       <td class="actions-cell">
@@ -495,25 +918,61 @@ function renderizarListaPatrocinadores() {
 function salvarPatrocinador(e) {
   e.preventDefault();
   
+  const form = document.getElementById("form-patrocinador");
+  if (!form.checkValidity()) {
+    form.reportValidity();
+    const invalidField = form.querySelector(":invalid");
+    if (invalidField) {
+      const pane = invalidField.closest(".form-step-pane");
+      if (pane) {
+        const step = parseInt(pane.getAttribute("data-step"), 10);
+        mostrarEtapa("patrocinador", step);
+      }
+    }
+    return;
+  }
+  
   const idEdit = document.getElementById("patrocinador-edit-id").value;
   const nomeVal = document.getElementById("pat-nome").value.trim();
-  const logoVal = document.getElementById("pat-logo").value.trim();
-  const linkVal = document.getElementById("pat-link").value.trim() || "https://wa.me/5527999879870";
   const ordemVal = parseInt(document.getElementById("pat-ordem").value, 10);
+  // Ficha Comercial
+  const cnpjVal = document.getElementById("pat-cnpj").value.trim();
+  const diaPgtoVal = document.getElementById("pat-dia-pgto").value;
+  const renovacaoVal = document.getElementById("pat-renovacao").value;
+  const valorPagoVal = parseFloat(document.getElementById("pat-valor").value) || 0;
+  const statusVal = document.querySelector('input[name="pat-status"]:checked')?.value || "ativo";
+  // Logo & Link
+  const logoVal = uploadedImages.patrocinador || document.getElementById("pat-logo").value.trim();
+  const linkVal = document.getElementById("pat-link").value.trim() || "https://wa.me/5527999879870";
+  
+  const novoObjeto = {
+    id: idEdit ? parseInt(idEdit, 10) : null,
+    nome: nomeVal,
+    logo: logoVal,
+    link: linkVal,
+    ordem: ordemVal,
+    cnpj: cnpjVal,
+    diaPagamento: diaPgtoVal,
+    renovacao: renovacaoVal,
+    valorPago: valorPagoVal,
+    status: statusVal
+  };
   
   if (idEdit) {
     const idx = patrocinadores.findIndex(p => p.id === parseInt(idEdit, 10));
     if (idx !== -1) {
-      patrocinadores[idx] = { id: parseInt(idEdit, 10), nome: nomeVal, logo: logoVal, link: linkVal, ordem: ordemVal };
+      novoObjeto.id = parseInt(idEdit, 10);
+      patrocinadores[idx] = novoObjeto;
     }
   } else {
-    const novoId = patrocinadores.length > 0 ? Math.max(...patrocinadores.map(p => p.id)) + 1 : 1;
-    patrocinadores.push({ id: novoId, nome: nomeVal, logo: logoVal, link: linkVal, ordem: ordemVal });
+    novoObjeto.id = patrocinadores.length > 0 ? Math.max(...patrocinadores.map(p => p.id)) + 1 : 1;
+    patrocinadores.push(novoObjeto);
   }
   
   localStorage.setItem("PULSO_SPONSORS", JSON.stringify(patrocinadores));
   fecharFormulario("patrocinador");
   renderizarListaPatrocinadores();
+  mostrarToastAdmin(`✅ Patrocinador "${nomeVal}" salvo com sucesso!`, "success");
 }
 
 window.editarPatrocinador = function(id) {
@@ -523,11 +982,28 @@ window.editarPatrocinador = function(id) {
   abrirFormulario("patrocinador");
   document.getElementById("form-patrocinador-titulo").textContent = "Editar Patrocinador";
   
+  // Etapa 1
   document.getElementById("patrocinador-edit-id").value = item.id;
   document.getElementById("pat-nome").value = item.nome;
-  document.getElementById("pat-logo").value = item.logo;
-  document.getElementById("pat-link").value = item.link === "https://wa.me/5527999879870" ? "" : item.link;
   document.getElementById("pat-ordem").value = item.ordem;
+  
+  // Etapa 2 — Ficha Comercial
+  document.getElementById("pat-cnpj").value = item.cnpj || "";
+  document.getElementById("pat-dia-pgto").value = item.diaPagamento || "";
+  document.getElementById("pat-renovacao").value = item.renovacao || "mensal";
+  document.getElementById("pat-valor").value = item.valorPago || "";
+  const statusAtual = item.status || "ativo";
+  const radioStatus = document.getElementById(`pat-status-${statusAtual}`);
+  if (radioStatus) radioStatus.checked = true;
+  
+  // Etapa 3 — Logo & Link
+  if (item.logo && item.logo.startsWith("data:")) {
+    mostrarPreviewUploadExistente("patrocinador", item.logo);
+    document.getElementById("pat-logo").value = "";
+  } else {
+    document.getElementById("pat-logo").value = item.logo || "";
+  }
+  document.getElementById("pat-link").value = item.link === "https://wa.me/5527999879870" ? "" : item.link;
 };
 
 window.deletarPatrocinador = function(id) {
@@ -541,6 +1017,40 @@ window.deletarPatrocinador = function(id) {
 // ==========================================
 // E. LIVE STREAM — Gerenciar Link da Live
 // ==========================================
+
+// ==========================================
+// PREVIEW STANDALONE DO CARD DE ANÚNCIO
+// ==========================================
+window.atualizarPreviewPatrocinador = function() {
+  const url = document.getElementById("preview-pat-url")?.value.trim();
+  const wrapper = document.getElementById("preview-logo-wrapper");
+  const placeholder = document.getElementById("preview-placeholder-text");
+  if (!wrapper) return;
+
+  // Limpar conteúdo anterior
+  wrapper.innerHTML = "";
+
+  if (url) {
+    const img = document.createElement("img");
+    img.src = url;
+    img.alt = "Preview Logo";
+    img.style.maxWidth = "80%";
+    img.style.maxHeight = "80%";
+    img.style.objectFit = "contain";
+    img.onerror = () => {
+      wrapper.innerHTML = `<span class="patrocinador-placeholder-logo" style="color:#ef4444;">Erro ao carregar imagem</span>`;
+      mostrarToastAdmin("❌ Não foi possível carregar essa imagem. Verifique a URL.", "error");
+    };
+    img.onload = () => {
+      mostrarToastAdmin("✅ Preview atualizado!", "success");
+    };
+    wrapper.appendChild(img);
+  } else {
+    wrapper.innerHTML = `<span class="patrocinador-placeholder-logo">Logo aqui</span>`;
+    mostrarToastAdmin("⚠️ Informe uma URL ou faça upload de uma imagem.", "warning");
+  }
+};
+
 const LIVE_URL_KEY = "PULSO_LIVE_URL";
 
 /**
@@ -738,4 +1248,102 @@ function inicializarTabLive() {
       }
     });
   }
+}
+
+// ==========================================
+// F. GERENCIAMENTO DE PUBLICIDADE (BANNERS)
+// ==========================================
+function inicializarTabPublicidade() {
+  const savedSidebar = localStorage.getItem("PULSO_AD_SIDEBAR");
+  const savedBottom = localStorage.getItem("PULSO_AD_BOTTOM");
+
+  resetarUpload("adSidebar");
+  resetarUpload("adBottom");
+  // Limpar inputs de arquivo
+  const sideFile = document.getElementById("ad-side-file");
+  if (sideFile) sideFile.value = "";
+  const bottomFile = document.getElementById("ad-bottom-file");
+  if (bottomFile) bottomFile.value = "";
+
+  if (savedSidebar) {
+    try {
+      const data = JSON.parse(savedSidebar);
+      document.getElementById("ad-side-title").value = data.titulo || "";
+      document.getElementById("ad-side-desc").value = data.descricao || "";
+      document.getElementById("ad-side-btn").value = data.botao || "";
+      document.getElementById("ad-side-link").value = data.link || "";
+      if (data.imagem && data.imagem.startsWith("data:")) {
+        mostrarPreviewUploadExistente("adSidebar", data.imagem);
+        document.getElementById("ad-side-img").value = "";
+      } else {
+        document.getElementById("ad-side-img").value = data.imagem || "";
+      }
+    } catch (e) {
+      console.error("Erro ao carregar dados do banner lateral no formulário:", e);
+    }
+  }
+
+  if (savedBottom) {
+    try {
+      const data = JSON.parse(savedBottom);
+      document.getElementById("ad-bottom-title").value = data.titulo || "";
+      document.getElementById("ad-bottom-tagline").value = data.tagline || "";
+      document.getElementById("ad-bottom-desc").value = data.descricao || "";
+      document.getElementById("ad-bottom-btn").value = data.botao || "";
+      document.getElementById("ad-bottom-link").value = data.link || "";
+      if (data.imagem && data.imagem.startsWith("data:")) {
+        mostrarPreviewUploadExistente("adBottom", data.imagem);
+        document.getElementById("ad-bottom-img").value = "";
+      } else {
+        document.getElementById("ad-bottom-img").value = data.imagem || "";
+      }
+    } catch (e) {
+      console.error("Erro ao carregar dados do banner inferior no formulário:", e);
+    }
+  }
+}
+
+function salvarPublicidade(e) {
+  e.preventDefault();
+
+  const form = document.getElementById("form-publicidade");
+  if (!form.checkValidity()) {
+    form.reportValidity();
+    return;
+  }
+
+  const sideTitleVal = document.getElementById("ad-side-title").value.trim();
+  const sideDescVal = document.getElementById("ad-side-desc").value.trim();
+  const sideBtnVal = document.getElementById("ad-side-btn").value.trim();
+  const sideLinkVal = document.getElementById("ad-side-link").value.trim();
+  const sideImgVal = uploadedImages.adSidebar || document.getElementById("ad-side-img").value.trim();
+
+  const bottomTitleVal = document.getElementById("ad-bottom-title").value.trim();
+  const bottomTaglineVal = document.getElementById("ad-bottom-tagline").value.trim();
+  const bottomDescVal = document.getElementById("ad-bottom-desc").value.trim();
+  const bottomBtnVal = document.getElementById("ad-bottom-btn").value.trim();
+  const bottomLinkVal = document.getElementById("ad-bottom-link").value.trim();
+  const bottomImgVal = uploadedImages.adBottom || document.getElementById("ad-bottom-img").value.trim();
+
+  const adSidebarObj = {
+    titulo: sideTitleVal,
+    descricao: sideDescVal,
+    botao: sideBtnVal,
+    link: sideLinkVal,
+    imagem: sideImgVal
+  };
+
+  const adBottomObj = {
+    titulo: bottomTitleVal,
+    tagline: bottomTaglineVal,
+    descricao: bottomDescVal,
+    botao: bottomBtnVal,
+    link: bottomLinkVal,
+    imagem: bottomImgVal
+  };
+
+  localStorage.setItem("PULSO_AD_SIDEBAR", JSON.stringify(adSidebarObj));
+  localStorage.setItem("PULSO_AD_BOTTOM", JSON.stringify(adBottomObj));
+
+  mostrarToastAdmin("✅ Alterações de publicidade salvas com sucesso!", "success");
 }
