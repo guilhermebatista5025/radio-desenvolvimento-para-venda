@@ -142,7 +142,9 @@ function configurarEventosGerais() {
   if (btnLogout) {
     btnLogout.addEventListener("click", () => {
       sessionStorage.removeItem("admin_authenticated");
-      window.location.href = "./index.html";
+      const path = window.location.pathname.replace(/\\/g, '/');
+      const isPage = path.includes('/pages/') || path.endsWith('/pages');
+      window.location.href = isPage ? "../index.html" : "./index.html";
     });
   }
 
@@ -472,7 +474,9 @@ function renderizarListaPatrocinadores() {
   
   patrocinadores.forEach(item => {
     const tr = document.createElement("tr");
-    const logoImg = item.logo || "./assets/icons/icon-192x192.png"; // Fallback para ícone genérico se não tiver logo customizado
+    const path = window.location.pathname.replace(/\\/g, '/');
+    const isPage = path.includes('/pages/') || path.endsWith('/pages');
+    const logoImg = item.logo || (isPage ? "../assets/icons/icon-192x192.png" : "./assets/icons/icon-192x192.png"); // Fallback para ícone genérico se não tiver logo customizado
     
     tr.innerHTML = `
       <td><img src="${logoImg}" class="tbl-thumb" alt="Logo" style="background-color:#eee; padding:5px;"></td>

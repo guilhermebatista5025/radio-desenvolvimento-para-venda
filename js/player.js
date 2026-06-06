@@ -385,7 +385,9 @@ async function updateMetadata() {
   
   if (ehPropaganda) {
     // Se for comercial/vinheta, carrega a logo oficial circular da rádio Pulso FM
-    coverUrl = "./assets/icons/icon-512x512.png";
+    const path = window.location.pathname.replace(/\\/g, '/');
+    const isPage = path.includes('/pages/') || path.endsWith('/pages');
+    coverUrl = (isPage ? "../" : "./") + "assets/icons/icon-512x512.png";
   } else {
     // Se for música normal, busca capa do álbum de forma assíncrona baseada na faixa ativa
     coverUrl = await buscarCapaAlbum(artistaExibir, musicaExibir);

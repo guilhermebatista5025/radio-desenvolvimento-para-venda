@@ -1,0 +1,10 @@
+# Arquivos de Desenvolvimento
+*~/antigravity-skills/
+
+# Arquivos de Sistema
+.DS_Store
+Thumbs.db
+
+# Arquivos de Cache e Logs
+*.log
+*.cache
